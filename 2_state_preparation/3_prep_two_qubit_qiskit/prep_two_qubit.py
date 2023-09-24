@@ -1,5 +1,6 @@
 from math import atan2, sqrt
-from qiskit import QuantumCircuit, Aer
+from qiskit import QuantumCircuit
+from qiskit_aer import Aer
 
 simulator = Aer.get_backend('aer_simulator')
 

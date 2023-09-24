@@ -6,10 +6,10 @@ from qiskit_aer import Aer
 simulator = Aer.get_backend('aer_simulator')
 
 def run_test_prep_two_qubit(a):
-  circuit = prep_two_qubit(a).decompose(reps=2)
-  circuit.save_statevector()
+  circ = prep_two_qubit(a).decompose(reps=2)
+  circ.save_statevector()
 
-  res = simulator.run(circuit).result()
+  res = simulator.run(circ).result()
   state_vector = res.get_statevector().data
 
   for actual, expected in zip(state_vector, a):
