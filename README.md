@@ -3,3 +3,4 @@ Code samples for the book "Quantum Programming Projects" by Mariia Mykhailova.
 
 ### [Chapter 2. State Preparation](./2_state_preparation/)
 
+### [Chapter 3. Implementing Quantum Operations](./3_unitary_implementation/)
