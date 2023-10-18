@@ -2,17 +2,11 @@ from .two_qubit_block_diagonal import apply_two_qubit_block_diagonal
 from math import pi, cos, sin
 from pytest import approx
 from random import random, randint
-from qiskit import QuantumCircuit
-from qiskit_aer import Aer
+from qiskit.quantum_info import Operator
 
 def run_test_apply_two_qubit_block_diagonal(a, b):
-  circ = QuantumCircuit(2)
-  circ.append(apply_two_qubit_block_diagonal(a, b), [0, 1])
-  circ = circ.decompose(reps=3)
-
-  simulator = Aer.get_backend('unitary_simulator')
-  res = simulator.run(circ).result()
-  matrix = res.get_unitary().data
+  op = Operator(apply_two_qubit_block_diagonal(a, b))
+  matrix = op.data
 
   complete_coef = [
       a[0] + [0., 0.],
@@ -20,7 +14,7 @@ def run_test_apply_two_qubit_block_diagonal(a, b):
       [0., 0.] + b[0],
       [0., 0.] + b[1]]
 
-  for actual, expected in zip(complete_coef, matrix):
+  for actual, expected in zip(matrix, complete_coef):
     assert actual == approx(expected)
 
 def random_one_qubit_unitary():

@@ -2,19 +2,11 @@ from .arbitrary_cs_matrix import apply_arbitrary_cs_matrix
 from math import pi, cos, sin
 from pytest import approx
 from random import random, randint
-from qiskit import QuantumCircuit
-from qiskit_aer import Aer
+from qiskit.quantum_info import Operator
 
 def run_test_apply_arbitrary_cs_matrix(n, cs):
-  circ = QuantumCircuit(n)
-  circ.append(apply_arbitrary_cs_matrix(n, cs), range(n))
-  circ = circ.decompose(reps=3)
-
-  simulator = Aer.get_backend('unitary_simulator')
-  res = simulator.run(circ).result()
-  matrix = res.get_unitary().data
-
-  print(matrix)
+  op = Operator(apply_arbitrary_cs_matrix(n, cs))
+  matrix = op.data
 
   complete_coef = []
   for (i, (c, s)) in enumerate(cs):
@@ -26,9 +18,7 @@ def run_test_apply_arbitrary_cs_matrix(n, cs):
     z_after = [0] * (2 ** (n - 1) - i - 1)
     complete_coef += [z_before + [s] + z_after + z_before + [c] + z_after]
 
-  print(complete_coef)
-
-  for actual, expected in zip(complete_coef, matrix):
+  for actual, expected in zip(matrix, complete_coef):
     assert actual == approx(expected)
 
 def random_one_qubit_unitary():

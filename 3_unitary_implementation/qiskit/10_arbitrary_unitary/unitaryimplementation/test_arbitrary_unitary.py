@@ -1,23 +1,15 @@
 from .arbitrary_unitary import apply_arbitrary_unitary
-from math import pi, cos, sin
 from numpy import identity, matrix, matmul
 from numpy.random import default_rng
 from pytest import approx
 from scipy.linalg import qr
-from random import random, randint
-from qiskit import QuantumCircuit
-from qiskit_aer import Aer
+from qiskit.quantum_info import Operator
 
 def run_test_apply_arbitrary_unitary(n, u):
-  circ = QuantumCircuit(n)
-  circ.append(apply_arbitrary_unitary(n, u), range(n))
-  circ = circ.decompose(reps=n+2)
+  op = Operator(apply_arbitrary_unitary(n, u))
+  matrix = op.data
 
-  simulator = Aer.get_backend('unitary_simulator')
-  res = simulator.run(circ).result()
-  matrix = res.get_unitary().data
-
-  for actual, expected in zip(u, matrix):
+  for actual, expected in zip(matrix, u):
     assert actual == approx(expected)
 
 def test_apply_arbitrary_unitary():

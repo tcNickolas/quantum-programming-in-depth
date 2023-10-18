@@ -2,35 +2,21 @@ from .two_block_diagonal import apply_two_block_diagonal
 from math import pi, cos, sin
 from pytest import approx
 from random import random, randint
-from qiskit import QuantumCircuit
-from qiskit_aer import Aer
+from qiskit.quantum_info import Operator
 
 def run_test_apply_two_block_diagonal(n, a, b):
   # For this version of the project, only test with 2 and 3 qubits.
   if n < 2 or n > 3:
     raise NotImplementedError("This test should run on 2- or 3-qubit unitaries")
 
-  print(n)
-  print(a)
-  print(b)
-
-  circ = QuantumCircuit(n)
-  circ.append(apply_two_block_diagonal(n, a, b), range(n))
-  circ = circ.decompose(reps=3)
-
-  simulator = Aer.get_backend('unitary_simulator')
-  res = simulator.run(circ).result()
-  matrix = res.get_unitary().data
-
-  print(matrix)
+  op = Operator(apply_two_block_diagonal(n, a, b))
+  matrix = op.data
 
   zeros = [0] * 2 ** (n - 1)
   complete_coef = [a_row + zeros for a_row in a] + \
                   [zeros + b_row for b_row in b]
 
-  print(complete_coef)
-
-  for actual, expected in zip(complete_coef, matrix):
+  for actual, expected in zip(matrix, complete_coef):
     assert actual == approx(expected)
 
 def random_one_qubit_unitary():

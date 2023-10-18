@@ -2,23 +2,17 @@ from .one_qubit_unitary import apply_one_qubit
 from math import pi, cos, sin
 from random import random, randint
 from pytest import approx
-from qiskit import QuantumCircuit
-from qiskit_aer import Aer
+from qiskit.quantum_info import Operator
 
-def run_test_apply_one_qubit(c):
-  assert len(c) == 2
-  for row in c:
+def run_test_apply_one_qubit(u):
+  assert len(u) == 2
+  for row in u:
     assert len(row) == 2
 
-  circ = QuantumCircuit(1)
-  circ.append(apply_one_qubit(c), [0])
-  circ = circ.decompose()
+  op = Operator(apply_one_qubit(u))
+  matrix = op.data
 
-  simulator = Aer.get_backend('unitary_simulator')
-  res = simulator.run(circ).result()
-  matrix = res.get_unitary().data
-
-  for actual, expected in zip(c, matrix):
+  for actual, expected in zip(matrix, u):
     assert actual == approx(expected)
 
 def test_diag_antidiag():

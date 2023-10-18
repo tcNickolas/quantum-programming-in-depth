@@ -10,34 +10,34 @@ namespace UnitaryImplementation.Test {
   open UnitaryImplementation;
 
   operation ApplyUnitaryWrap(
-    qs : Qubit[], c : Double[][]
+    qs : Qubit[], u : Double[][]
   ) : Unit is Adj + Ctl {
     let doubleAsComplex = d -> Complex(d, 0.0);
     let doubleAAsComplexA = arr -> Mapped(doubleAsComplex, arr);
-    let coefComplex = Mapped(doubleAAsComplexA, c);
+    let coefComplex = Mapped(doubleAAsComplexA, u);
     ApplyUnitary(coefComplex, LittleEndian(qs));
   }
 
-  operation ValidateOneQubitUnitary(c : Double[][]) : Unit {
-    Fact(Length(c) == 2, 
+  operation ValidateOneQubitUnitary(u : Double[][]) : Unit {
+    Fact(Length(u) == 2, 
       "The matrix should be 2x2");
-    for row in c {
+    for row in u {
       Fact(Length(row) == 2, "The matrix should be 2x2");
     }
 
     NearEqualityFactD(
-      c[0][0] ^ 2. + c[1][0] ^ 2., 1.);
+      u[0][0] ^ 2. + u[1][0] ^ 2., 1.);
     NearEqualityFactD(
-      c[0][1] ^ 2. + c[1][1] ^ 2., 1.);
+      u[0][1] ^ 2. + u[1][1] ^ 2., 1.);
     NearEqualityFactD(
-      c[0][0] * c[0][1] + c[1][0] * c[1][1], 0.);
+      u[0][0] * u[0][1] + u[1][0] * u[1][1], 0.);
   }
 
-  operation TestApplyOneQubit(c : Double[][]) : Unit {
-    ValidateOneQubitUnitary(c);
+  operation TestApplyOneQubit(u : Double[][]) : Unit {
+    ValidateOneQubitUnitary(u);
 
-    let testOp = ApplyOneQubit(_, c);
-    let refOp = ApplyUnitaryWrap(_, c);
+    let testOp = ApplyOneQubit(_, u);
+    let refOp = ApplyUnitaryWrap(_, u);
     AssertOperationsEqualReferenced(1, testOp, refOp);
   }
 
