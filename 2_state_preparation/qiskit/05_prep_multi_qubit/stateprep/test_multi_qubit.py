@@ -15,8 +15,7 @@ def run_test_prep_multi_qubit(n, a):
   res = simulator.run(circ).result()
   state_vector = res.get_statevector().data
 
-  for actual, expected in zip(state_vector, a):
-    assert actual == approx(expected)
+  assert state_vector == approx(a)
 
 def test_basis_states():
   for n in range(1, 4):

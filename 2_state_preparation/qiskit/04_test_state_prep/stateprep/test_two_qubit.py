@@ -12,8 +12,7 @@ def run_test_prep_two_qubit(a):
   res = simulator.run(circ).result()
   state_vector = res.get_statevector().data
 
-  for actual, expected in zip(state_vector, a):
-    assert actual == approx(expected)
+  assert state_vector == approx(a)
 
 def test_basis_states():
   run_test_prep_two_qubit([1., 0., 0., 0.])
