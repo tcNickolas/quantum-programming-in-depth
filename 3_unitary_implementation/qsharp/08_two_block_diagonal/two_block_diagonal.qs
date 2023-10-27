@@ -56,7 +56,7 @@
     } elif n == 2 {
       // We can implement a block-diagonal or 
       // a block-anti-diagonal matrix.
-      let isZeroD = x -> AbsD(x) < 1e-10;
+      let isZeroD = x -> NearlyEqualD(x, 0.0);
       if All(isZeroD, 
         u[0][2..3] + u[1][2..3] + u[2][0..1] + u[3][0..1]) {
         // Block-diagonal matrix.
@@ -82,7 +82,9 @@
     qs : Qubit[], a : Double[][], b : Double[][]
   ) : Unit is Adj + Ctl {
     let n = Length(qs);
-    Controlled ApplyArbitraryUnitary([qs[n - 1]], (qs[...n - 2], b));
-    ControlledOnInt(0, ApplyArbitraryUnitary)([qs[n - 1]], (qs[...n - 2], a));
+    Controlled ApplyArbitraryUnitary([qs[n - 1]], 
+      (qs[...n - 2], b));
+    ControlledOnInt(0, ApplyArbitraryUnitary)([qs[n - 1]], 
+      (qs[...n - 2], a));
   }
 }

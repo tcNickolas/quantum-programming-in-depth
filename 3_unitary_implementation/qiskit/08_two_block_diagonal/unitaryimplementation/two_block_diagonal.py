@@ -59,6 +59,8 @@ def apply_arbitrary_unitary(n, u):
 
 def apply_two_block_diagonal(n, a, b):
   circ = QuantumCircuit(n)
-  circ.append(apply_arbitrary_unitary(n - 1, b).control(1), [n - 1] + list(range(n - 1)))
-  circ.append(apply_arbitrary_unitary(n - 1, a).control(1, ctrl_state=0), [n - 1] + list(range(n - 1)))
+  circ.append(apply_arbitrary_unitary(n - 1, b).control(1), 
+              [n - 1] + list(range(n - 1)))
+  circ.append(apply_arbitrary_unitary(n - 1, a).control(1, ctrl_state=0), 
+              [n - 1] + list(range(n - 1)))
   return circ
