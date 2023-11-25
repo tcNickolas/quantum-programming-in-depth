@@ -1,9 +1,5 @@
 namespace UnitaryImplementation.Test {
-  open Microsoft.Quantum.Arithmetic;
-  open Microsoft.Quantum.Arrays;
-  open Microsoft.Quantum.Convert;
   open Microsoft.Quantum.Diagnostics;
-  open Microsoft.Quantum.Math;
   open Microsoft.Quantum.Synthesis;
 
   open UnitaryImplementation;

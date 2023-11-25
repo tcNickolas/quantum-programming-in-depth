@@ -21,9 +21,10 @@
     qs : Qubit[], 
     cs : (Double, Double)[]
   ) : Unit is Adj + Ctl {
-    for (i, (c, s)) in Enumerated(cs) {
+    for (k, (c, s)) in Enumerated(cs) {
       let m = [[c, -s], [s, c]];
-      ControlledOnInt(i, ApplyOneQubit)(qs[...Length(qs) - 2], ([qs[Length(qs) - 1]], m));
+      ControlledOnInt(k, ApplyOneQubit)(qs[...Length(qs) - 2], 
+                                        ([qs[Length(qs) - 1]], m));
     }
   }
 }

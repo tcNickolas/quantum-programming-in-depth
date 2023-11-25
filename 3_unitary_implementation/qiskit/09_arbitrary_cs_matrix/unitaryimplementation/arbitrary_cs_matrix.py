@@ -13,7 +13,7 @@ def apply_one_qubit(u):
 
 def apply_arbitrary_cs_matrix(n, cs):
   circ = QuantumCircuit(n)
-  for (i, (c, s)) in enumerate(cs):
+  for (k, (c, s)) in enumerate(cs):
     m = [[c, -s], [s, c]]
-    circ.append(apply_one_qubit(m).control(n - 1, ctrl_state=i), range(n))
+    circ.append(apply_one_qubit(m).control(n - 1, ctrl_state=k), range(n))
   return circ
