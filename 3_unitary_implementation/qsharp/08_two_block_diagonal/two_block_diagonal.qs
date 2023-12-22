@@ -58,17 +58,19 @@
       // a block-anti-diagonal matrix.
       let isZeroD = x -> NearlyEqualD(x, 0.0);
       if All(isZeroD, 
-        u[0][2..3] + u[1][2..3] + u[2][0..1] + u[3][0..1]) {
+        u[0][2..3] + u[1][2..3] + 
+        u[2][0..1] + u[3][0..1]) {
         // Block-diagonal matrix.
-        let a = [u[0][0..1], u[1][0..1]];
-        let b = [u[2][2..3], u[3][2..3]];
-        ApplyTwoQubitBlockDiagonal(qs, a, b);
+        let tl = [u[0][0..1], u[1][0..1]];
+        let br = [u[2][2..3], u[3][2..3]];
+        ApplyTwoQubitBlockDiagonal(qs, tl, br);
       } elif All(isZeroD, 
-        u[0][0..1] + u[1][0..1] + u[2][2..3] + u[3][2..3]) {
+        u[0][0..1] + u[1][0..1] + 
+        u[2][2..3] + u[3][2..3]) {
         // Block-anti-diagonal matrix.
-        let a = [u[0][2..3], u[1][2..3]];
-        let b = [u[2][0..1], u[3][0..1]];
-        ApplyTwoQubitBlockAntiDiagonal(qs, a, b);
+        let tr = [u[0][2..3], u[1][2..3]];
+        let bl = [u[2][0..1], u[3][0..1]];
+        ApplyTwoQubitBlockAntiDiagonal(qs, tr, bl);
       } else {
         fail "The case of arbitrary 2-qubit unitaries" +
           " is not implemented yet";

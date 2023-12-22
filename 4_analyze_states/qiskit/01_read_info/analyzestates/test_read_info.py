@@ -3,10 +3,10 @@ from qiskit import QuantumCircuit
 from qiskit_aer import Aer
 from random import randint
 
-def run_test_read_info(n, num):
+def run_test_read_info(n, basis_state):
   circ = QuantumCircuit(n, n)
   for i in range(n):
-    if (num & (1 << i)) > 0:
+    if (basis_state & (1 << i)) > 0:
       circ.x(i)
 
   circ.append(read_info(n), range(n), range(n))
@@ -17,7 +17,7 @@ def run_test_read_info(n, num):
   res_bitstring = list(res_map.keys())[0]
   res = int(res_bitstring, 2)
 
-  assert res == num
+  assert res == basis_state
 
 def test_read_info():
   for _ in range(1, 20):

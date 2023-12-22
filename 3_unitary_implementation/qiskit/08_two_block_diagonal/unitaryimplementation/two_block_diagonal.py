@@ -1,11 +1,9 @@
-from math import atan2
-from pytest import approx
+from math import atan2, isclose
 from qiskit import QuantumCircuit
 
 def apply_one_qubit(u):
   circ = QuantumCircuit(1)
-  if u[0][0] == approx(-u[1][1]) and \
-     u[1][0] == approx(u[0][1]):
+  if isclose(u[0][0], -u[1][1]) and isclose(u[1][0], u[0][1]):
     circ.z(0)
   theta = atan2(u[1][0], u[0][0])
   circ.ry(2 * theta, 0)
@@ -40,18 +38,20 @@ def apply_arbitrary_unitary(n, u):
   if n == 1:
     return apply_one_qubit(u)
   if n == 2:
-    if all(v == 0 for v in 
-           u[0][2:4] + u[1][2:4] + u[2][0:2] + u[3][0:2]):
+    if all(isclose(v, 0) for v in 
+           u[0][2:4] + u[1][2:4] + 
+           u[2][0:2] + u[3][0:2]):
       # Block-diagonal matrix.
-      a = [u[0][0:2], u[1][0:2]]
-      b = [u[2][2:4], u[3][2:4]]
-      return apply_two_qubit_block_diagonal(a, b).decompose().to_gate()
-    if all(v == 0 for v in 
-           u[0][0:2] + u[1][0:2] + u[2][2:4] + u[3][2:4]):
+      tl = [u[0][0:2], u[1][0:2]]
+      br = [u[2][2:4], u[3][2:4]]
+      return apply_two_qubit_block_diagonal(tl, br).decompose().to_gate()
+    if all(isclose(v, 0) for v in 
+           u[0][0:2] + u[1][0:2] + 
+           u[2][2:4] + u[3][2:4]):
       # Block-anti-diagonal matrix.
-      a = [u[0][2:4], u[1][2:4]]
-      b = [u[2][0:2], u[3][0:2]]
-      return apply_two_qubit_block_antidiagonal(a, b).decompose().to_gate()
+      tr = [u[0][2:4], u[1][2:4]]
+      bl = [u[2][0:2], u[3][0:2]]
+      return apply_two_qubit_block_antidiagonal(tr, bl).decompose().to_gate()
     raise NotImplementedError("The case of " +
       "arbitrary 2-qubit unitaries is not implemented yet")
   raise NotImplementedError(
