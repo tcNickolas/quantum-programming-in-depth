@@ -29,7 +29,7 @@ namespace AnalyzeStates.Test {
         }
       }
       let pSuccess = IntAsDouble(nCorrect) / IntAsDouble(nTrials);
-      let pSuccessTheor = 0.5 * (1. + Sqrt(1. - alpha ^ 2.));
+      let pSuccessTheor = 0.5 * (1. + beta);
       Message($"Correct guesses {pSuccess}, theoretical {pSuccessTheor}");
       if pSuccess < pSuccessTheor - 0.05 {
         fail $"Expected success probability {pSuccessTheor}, got {pSuccess}, too low";

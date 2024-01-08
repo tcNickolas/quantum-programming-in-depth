@@ -30,7 +30,7 @@ def reconstruct_state(state_prep):
   circ2 = circ2.decompose()
 
   res_map = simulator.run(circ2, shots=n_trials).result().get_counts()
-  if '0' in res_map and res_map['0'] > n_trials - res_map['0']:
+  if '0' in res_map and 2 * res_map['0'] > n_trials:
     return (alpha, -beta)
   else:
     return (alpha, beta)

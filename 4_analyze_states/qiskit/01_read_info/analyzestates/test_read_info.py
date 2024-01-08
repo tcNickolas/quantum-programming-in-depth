@@ -13,7 +13,10 @@ def run_test_read_info(n, basis_state):
   circ = circ.decompose()
 
   simulator = Aer.get_backend('aer_simulator')
-  res_map = simulator.run(circ, shots=1).result().get_counts()
+  res_map = simulator.run(circ, shots=100).result().get_counts()
+  # Check that the execution result is always the same
+  assert len(res_map) == 1
+  # Check that the measured state matches the state that was prepared
   res_bitstring = list(res_map.keys())[0]
   res = int(res_bitstring, 2)
 
