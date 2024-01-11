@@ -12,9 +12,12 @@ class CsMatrix(cirq.Gate):
     def _num_qubits_(self):
         return 2
     
-    def _unitary_(self):
-        mat1 = np.array([[1, 0, 0, 0], [0, 1, 0, 0],
-                       [0, 0, self.c0, -self.s0], [0, 0, self.s0, self.c0]])
-        mat2 = np.array([[self.c1, -self.s1, 0, 0], [self.s1, self.c1, 0, 0],
-                        [0, 0, 1, 0], [0, 0, 0, 1]])
-        return np.matmul(mat1, mat2) 
+    def _unitary_(self):        
+        mat1 = np.array([[self.c0, 0, -self.s0, 0], [0, 1, 0, 0],
+                       [self.s0, 0, self.c0, 0], [0, 0, 0, 1]])
+        mat2 = np.array([[1, 0, 0, 0], [0, self.c1, 0, -self.s1],
+                        [0, 0, 1, 0], [0, self.s1, 0, self.c1]])
+        return np.matmul(mat1, mat2)  
+    
+    def _circuit_diagram_info_(self, args):
+        return f"cs matrix with({self.c0, self.s0, self.c1, self.s1})"
