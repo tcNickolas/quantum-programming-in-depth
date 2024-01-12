@@ -34,8 +34,8 @@ class BlockDiagonalMatrix_2(cirq.Gate):
         control_1 = self.gate_b.controlled().on(qubits[0], qubits[1])
         control_2 = self.gate_a.controlled(control_values=[0]).on(qubits[0], qubits[1])
         
-        yield control_1
         yield control_2
+        yield control_1
         
     def _circuit_diagram_info_(self, args):
         return f"block diagonal matrix with({self.a, self.b})"
