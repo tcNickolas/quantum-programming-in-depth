@@ -1,5 +1,5 @@
 import numpy as np
-from math importisclose
+from math import isclose
 import cirq
 
 class OneQubitUnitary(cirq.Gate):
