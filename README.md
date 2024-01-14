@@ -6,3 +6,5 @@ Code samples for the book "Quantum Programming Projects" by Mariia Mykhailova.
 ### [Chapter 3. Implement Quantum Operations](./3_unitary_implementation/)
 
 ### [Chapter 4. Analyze Quantum States](./4_analyze_states/)
+
+### [Chapter 5. Analyze Quantum Operations](./5_analyze_operations/)
