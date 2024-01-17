@@ -3,7 +3,6 @@ from numpy import identity, matrix, matmul
 from numpy.random import default_rng
 from pytest import approx
 from scipy.linalg import qr
-from qiskit.quantum_info import Operator
 
 def run_test_apply_arbitrary_unitary(n, u):
   matrix = apply_arbitrary_unitary(n, u).get_unitary()
