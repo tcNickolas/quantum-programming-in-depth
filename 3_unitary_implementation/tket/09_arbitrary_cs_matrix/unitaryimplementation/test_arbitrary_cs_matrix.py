@@ -1,4 +1,4 @@
-from arbitrary_cs_matrix import apply_arbitrary_cs_matrix
+from .arbitrary_cs_matrix import apply_arbitrary_cs_matrix
 from math import pi, cos, sin
 from pytest import approx
 from random import random, randint
