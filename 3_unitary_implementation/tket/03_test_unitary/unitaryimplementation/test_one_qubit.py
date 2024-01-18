@@ -1,7 +1,6 @@
 from math import cos, pi, sin
 from random import randint, random
 import pytest
-from qiskit.quantum_info import Operator
 from .one_qubit_unitary import apply_one_qubit
 
 @pytest.mark.parametrize("u",
