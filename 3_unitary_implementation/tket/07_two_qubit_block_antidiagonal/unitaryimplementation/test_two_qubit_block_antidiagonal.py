@@ -1,4 +1,4 @@
-from two_qubit_block_antidiagonal import apply_two_qubit_block_antidiagonal
+from .two_qubit_block_antidiagonal import apply_two_qubit_block_antidiagonal
 from math import pi, cos, sin
 from pytest import approx
 from random import random, randint
