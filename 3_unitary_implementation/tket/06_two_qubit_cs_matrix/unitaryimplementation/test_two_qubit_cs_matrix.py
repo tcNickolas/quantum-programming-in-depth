@@ -1,4 +1,4 @@
-from two_qubit_cs_matrix import apply_two_qubit_cs_matrix
+from .two_qubit_cs_matrix import apply_two_qubit_cs_matrix
 from math import pi, cos, sin
 from pytest import approx
 from random import random, randint
