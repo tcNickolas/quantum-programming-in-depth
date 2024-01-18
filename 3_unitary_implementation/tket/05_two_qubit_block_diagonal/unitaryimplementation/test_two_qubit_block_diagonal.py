@@ -1,4 +1,4 @@
-from two_qubit_block_diagonal import apply_two_qubit_block_diagonal
+from .two_qubit_block_diagonal import apply_two_qubit_block_diagonal
 from math import pi, cos, sin
 from pytest import approx
 from random import random, randint
