@@ -69,8 +69,8 @@ def apply_two_block_diagonal(n, a, b):
   circ = Circuit(n)
   control_1 = QControlBox(apply_arbitrary_unitary(n-1, b), n_controls=1)
   control_0 = QControlBox(apply_arbitrary_unitary(n-1, a), n_controls=1, control_state=0)
-  circ.add_qcontrolbox(control_1, [0] + list(range(1, n)))
-  circ.add_qcontrolbox(control_0, [0] + list(range(1, n)))
+  circ.add_qcontrolbox(control_1, list(range(n)))
+  circ.add_qcontrolbox(control_0, list(range(n)))
   circ_gate = CircBox(circ)
   return circ_gate
   return circ
