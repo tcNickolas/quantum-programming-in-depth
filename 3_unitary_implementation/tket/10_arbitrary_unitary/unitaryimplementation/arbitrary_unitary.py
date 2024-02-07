@@ -15,8 +15,6 @@ def apply_arbitrary_cs_matrix(n, cs):
   circ = Circuit(n)
   for (k, (c, s)) in enumerate(cs):
     m = [[c, -s], [s, c]]
-    # two_power = 2**(n-1)
-    # l = two_power - k
     control = QControlBox(apply_one_qubit(m), n_controls=n-1, control_state=k)
     circ.add_qcontrolbox(control, list(range(1, n)) + [0])
   circ_gate = CircBox(circ)
