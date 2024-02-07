@@ -14,7 +14,7 @@ def apply_two_qubit_block_diagonal(a, b):
     circ = Circuit(2)
     control_1 = QControlBox(apply_one_qubit(b), n_controls=1, control_state=1)
     control_0 = QControlBox(apply_one_qubit(a), n_controls=1, control_state=0)
-    circ.add_qcontrolbox(control_1, [0, 1])
+    circ.add_qcontrolbox(control_1, [0, 1]) # tket uses big-endian indexing for qubits, so the 0-th qubit is the control qubit here
     circ.add_qcontrolbox(control_0, [0, 1])
     circ_gate = CircBox(circ)
     return circ_gate
