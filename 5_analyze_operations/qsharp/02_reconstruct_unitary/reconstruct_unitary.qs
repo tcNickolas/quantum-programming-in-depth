@@ -6,7 +6,7 @@
   operation ReconstructState(statePrep : Qubit => Unit) : (Double, Double) {
     // Figure out the absolute values of alpha and beta
     mutable nZeros = 0;
-    mutable nTrials = 200;
+    let nTrials = 200;
     for _ in 1 .. nTrials {
       use q = Qubit();
       statePrep(q);
