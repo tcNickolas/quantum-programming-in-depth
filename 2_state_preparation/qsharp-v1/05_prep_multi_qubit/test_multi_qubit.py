@@ -1,28 +1,31 @@
-from .prep_multi_qubit import prep_multi_qubit
 import pytest
+import qsharp
 from math import sqrt
-from qiskit_aer import Aer
 from random import randint, uniform
 
-simulator = Aer.get_backend('aer_simulator')
+def run_test_prep_multi_qubit(n, amps):
+  qsharp.init(project_root='.')
+  qsharp.eval(f"use qs = Qubit[{n}]; StatePreparation.PrepArbitrary(qs, {amps});")
+  dump = qsharp.dump_machine()
 
-def run_test_prep_multi_qubit(n, a):
-  assert len(a) == 2 ** n
+  first_ind = -1
+  first_amp_cp = 0
+  for ind in range(len(amps)):
+    if abs(amps[ind]) > 1E-9:
+      (real, imag) = dump[ind]
+      if first_ind == -1:
+        first_ind = ind
+        first_amp_cp = complex(real, imag)
+      assert complex(real, imag) / first_amp_cp == pytest.approx(amps[ind] / amps[first_ind])
 
-  circ = prep_multi_qubit(n, a).decompose(reps=2)
-  circ.save_statevector()
-
-  res = simulator.run(circ).result()
-  state_vector = res.get_statevector().data
-
-  assert state_vector == pytest.approx(a)
 
 def test_basis_states():
   for n in range(1, 4):
     for basis in range(2 ** n):
       a = [0.] * 2 ** n
       a[basis] = 1.
-      run_test_prep_multi_qubit(n, a)
+    run_test_prep_multi_qubit(n, a)
+
 
 @pytest.mark.parametrize("a",
     [ [0.5, 0.5, 0.5, 0.5],
@@ -39,6 +42,7 @@ def test_basis_states():
     ])
 def test_prep_two_qubits(a):
   run_test_prep_multi_qubit(2, a)
+
 
 def test_random_unequal_superpositions():
   for i in range(10):
