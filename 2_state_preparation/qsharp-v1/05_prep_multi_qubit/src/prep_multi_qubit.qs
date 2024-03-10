@@ -1,7 +1,4 @@
 ﻿namespace StatePreparation {
-
-  open Microsoft.Quantum.Canon;
-  open Microsoft.Quantum.Intrinsic;
   open Microsoft.Quantum.Math;
 
   operation PrepOneQubit(
