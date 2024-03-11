@@ -2,37 +2,34 @@ from math import cos, pi, sin
 from random import randint, random
 import pytest
 import qsharp
-import qsharp.utils
+from qsharp.utils import dump_operation
 
 def assert_matrices_equal(u, v):
   # Check matrix dimensions
   n = len(u)
   assert len(u) == n
   for row in range(n):
-    assert len(u[row]) == n
-    assert len(v[row]) == n
+    assert len(u[row]) == n and len(v[row]) == n
 
-  # Find first non-zero element to use for normalization
-  first_row = -1
-  first_col = -1
+  # Find global phase difference
+  global_phase = -2
   for row in range(n):
     for col in range(n):
       if abs(u[row][col]) > 1E-9:
-        first_row = row
-        first_col = col
+        global_phase = v[row][col] / u[row][col]
         break
-    if first_row > -1:
+    if abs(global_phase) < 1.5:
       break
 
   # Compare element-wise, normalizing elements
   for row in range(len(u)):
     for col in range(len(u)):
-      assert u[row][col] / u[first_row][first_col] == \
-        pytest.approx(v[row][col] / v[first_row][first_col], abs=1e-4)
+      assert u[row][col] * global_phase == \
+        pytest.approx(v[row][col], abs=1e-4)
 
 def run_test_apply_two_qubit_cs_matrix(c0, s0, c1, s1):
   qsharp.init(project_root='.')
-  matrix = qsharp.utils.dump_operation(f"UnitaryImplementation.ApplyTwoQubitCSMatrix(_, ({c0}, {s0}), ({c1}, {s1}))", 2)
+  matrix = dump_operation(f"UnitaryImplementation.ApplyTwoQubitCSMatrix(_, ({c0}, {s0}), ({c1}, {s1}))", 2)
 
   complete_coef = [
       [c0, 0., -s0, 0.],
