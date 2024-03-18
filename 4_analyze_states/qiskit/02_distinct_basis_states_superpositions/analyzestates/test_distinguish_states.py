@@ -6,8 +6,8 @@ from random import randint
 def prep_test_state(ind):
   circ = QuantumCircuit(3)
   circ.h(0)
-  circ.cnot(0, 1)
-  circ.cnot(0, 2)
+  circ.cx(0, 1)
+  circ.cx(0, 2)
   if ind > 0:
     circ.x(ind - 1)
   return circ

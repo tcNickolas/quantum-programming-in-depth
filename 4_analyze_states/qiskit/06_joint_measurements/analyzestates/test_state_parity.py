@@ -3,7 +3,7 @@ from math import sqrt
 from pytest import approx
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
-from random import randrange, uniform
+from random import uniform
 
 def complete_amps(n, parity_amps, parity):
   if n == 1:

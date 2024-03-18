@@ -6,7 +6,7 @@ from random import randrange
 def prep_bell_state(ind):
   circ = QuantumCircuit(2)
   circ.h(0)
-  circ.cnot(0, 1)
+  circ.cx(0, 1)
   if ind // 2 == 1:
     circ.x(0)
   if ind % 2 == 1:

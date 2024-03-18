@@ -11,7 +11,7 @@ def z_gate():
 
 def inc_gate():
   circ = QuantumCircuit(2)
-  circ.cnot(0, 1)
+  circ.cx(0, 1)
   circ.x(0)
   return circ.to_gate()
 
