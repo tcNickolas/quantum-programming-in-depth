@@ -7,7 +7,7 @@ from qsharp.utils import dump_operation
 def assert_matrices_equal(u, v):
   # Check matrix dimensions
   n = len(u)
-  assert len(u) == n
+  assert len(v) == n
   for row in range(n):
     assert len(u[row]) == n and len(v[row]) == n
 

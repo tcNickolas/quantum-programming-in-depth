@@ -15,7 +15,7 @@
 
   operation ApplyTwoQubitBlockDiagonal(
     qs : Qubit[], a : Double[][], b : Double[][]
-  ) : Unit {
+  ) : Unit is Adj + Ctl {
     Controlled ApplyOneQubit([qs[0]], ([qs[1]], b));
     ApplyControlledOnInt(0, ApplyOneQubit, [qs[0]], ([qs[1]], a));
   }

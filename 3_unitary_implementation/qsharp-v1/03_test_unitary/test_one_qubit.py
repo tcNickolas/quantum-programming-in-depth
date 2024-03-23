@@ -7,7 +7,7 @@ from qsharp.utils import dump_operation
 def assert_matrices_equal(u, v):
   # Check matrix dimensions
   n = len(u)
-  assert len(u) == n
+  assert len(v) == n
   for row in range(n):
     assert len(u[row]) == n and len(v[row]) == n
 
@@ -38,10 +38,6 @@ def assert_matrices_equal(u, v):
       [[0.0, -1.0], [1.0, 0.0]],
       [[0.0, -1.0], [-1.0, 0.0]] ])
 def test_apply_one_qubit(u):
-  assert len(u) == 2
-  for row in u:
-    assert len(row) == 2
-
   qsharp.init(project_root='.')
   matrix = dump_operation(f"UnitaryImplementation.ApplyOneQubit(_, {u})", 1)
 

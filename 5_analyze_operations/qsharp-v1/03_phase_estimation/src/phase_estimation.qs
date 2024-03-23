@@ -2,7 +2,6 @@
   open Microsoft.Quantum.Canon;
   open Microsoft.Quantum.Convert;
   open Microsoft.Quantum.Math;
-  open Microsoft.Quantum.Measurement;
 
   operation OneBitPhaseEstimation(
     n : Int,

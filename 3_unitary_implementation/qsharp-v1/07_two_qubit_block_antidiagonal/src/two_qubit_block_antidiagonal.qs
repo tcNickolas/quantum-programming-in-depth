@@ -33,7 +33,7 @@
 
   operation ApplyTwoQubitBlockAntiDiagonal(
     qs : Qubit[], a : Double[][], b : Double[][]
-  ) : Unit {
+  ) : Unit is Adj + Ctl {
     let id = [[1., 0.], [0., 1.]];
     let minusA = [[-a[0][0], -a[0][1]], [-a[1][0], -a[1][1]]];
     ApplyTwoQubitBlockDiagonal(qs, id, minusA);

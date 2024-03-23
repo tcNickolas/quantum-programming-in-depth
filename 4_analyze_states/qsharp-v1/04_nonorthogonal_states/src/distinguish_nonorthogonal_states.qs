@@ -1,6 +1,5 @@
 ﻿namespace AnalyzeStates {
   open Microsoft.Quantum.Math;
-  open Microsoft.Quantum.Measurement;
 
   operation DistinguishZeroAndSup(q : Qubit, alpha : Double, beta : Double) : Int {
     // Figure out the angle of the line halfway between |0> and alpha |0> + beta |1>

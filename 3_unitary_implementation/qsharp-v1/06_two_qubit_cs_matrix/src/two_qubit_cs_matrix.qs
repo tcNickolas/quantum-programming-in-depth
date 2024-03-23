@@ -17,7 +17,7 @@
     qs : Qubit[], 
     (c0 : Double, s0 : Double),
     (c1 : Double, s1 : Double)
-  ) : Unit {
+  ) : Unit is Adj + Ctl {
     let m0 = [[c0, -s0], [s0, c0]];
     let m1 = [[c1, -s1], [s1, c1]];
     Controlled ApplyOneQubit([qs[1]], ([qs[0]], m1));

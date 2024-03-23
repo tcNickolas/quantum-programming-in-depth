@@ -2,7 +2,6 @@ namespace AnalyzeUnitaries.Test {
   open Microsoft.Quantum.Arrays;
   open Microsoft.Quantum.Convert;
   open Microsoft.Quantum.Diagnostics;
-  open Microsoft.Quantum.Intrinsic;
   open Microsoft.Quantum.Math;
 
   open AnalyzeUnitaries;

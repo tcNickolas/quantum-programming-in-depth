@@ -3,7 +3,7 @@
 
   operation ApplyOneQubit(
     qs : Qubit[], u : Double[][]
-  ) : Unit {
+  ) : Unit is Adj + Ctl {
     if AbsD(u[0][0] - (-u[1][1])) < 1e-9 and 
        AbsD(u[0][1] - u[1][0]) < 1e-9 {
       Z(qs[0]);

@@ -1,6 +1,4 @@
 ﻿namespace AnalyzeUnitaries {
-  open Microsoft.Quantum.Measurement;
-
   operation DistinguishXZ(gate : Qubit => Unit is Adj+Ctl) : Int {
     use q = Qubit();
     gate(q);

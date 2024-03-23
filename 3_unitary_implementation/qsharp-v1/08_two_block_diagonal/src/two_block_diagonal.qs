@@ -79,7 +79,7 @@
 
   operation ApplyTwoBlockDiagonal(
     qs : Qubit[], a : Double[][], b : Double[][]
-  ) : Unit {
+  ) : Unit is Adj + Ctl {
     let n = Length(qs);
     Controlled ApplyArbitraryUnitary([qs[0]], 
       (qs[1...], b));

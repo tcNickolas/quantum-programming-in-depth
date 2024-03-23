@@ -1,7 +1,6 @@
 ﻿namespace AnalyzeUnitaries {
   open Microsoft.Quantum.Convert;
   open Microsoft.Quantum.Math;
-  open Microsoft.Quantum.Measurement;
 
   operation ReconstructState(statePrep : Qubit => Unit) : (Double, Double) {
     // Figure out the absolute values of alpha and beta

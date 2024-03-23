@@ -1,6 +1,4 @@
 ﻿namespace AnalyzeStates {
-  open Microsoft.Quantum.Measurement;
-
   operation ReadInformationInt(qs : Qubit[]) : Int {
     mutable res = 0;
     for k in Length(qs) - 1 .. -1 .. 0 {

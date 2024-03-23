@@ -17,7 +17,7 @@
   operation ApplyArbitraryCSMatrix(
     qs : Qubit[], 
     cs : (Double, Double)[]
-  ) : Unit {
+  ) : Unit is Adj + Ctl {
     for (k, (c, s)) in Enumerated(cs) {
       let m = [[c, -s], [s, c]];
       ApplyControlledOnInt(k, ApplyOneQubit, Reversed(qs[1...]),
