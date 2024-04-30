@@ -1,7 +1,6 @@
 namespace ReversibleComputing.Test {
-  open Microsoft.Quantum.Logical;
-  open Microsoft.Quantum.Convert;
   open Microsoft.Quantum.Arrays;
+  open Microsoft.Quantum.Convert;
   open Microsoft.Quantum.Diagnostics;
   open ReversibleComputing;
 

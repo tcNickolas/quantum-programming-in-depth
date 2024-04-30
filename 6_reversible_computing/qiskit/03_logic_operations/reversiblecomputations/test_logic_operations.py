@@ -1,0 +1,82 @@
+from cmath import isclose
+from .logic_operations import oracle_negation, oracle_xor, oracle_and, oracle_or, oracle_equal, oracle_multiand, oracle_multior
+import pytest
+from qiskit import QuantumCircuit
+from qiskit_aer import Aer
+
+def f_negation(arg):
+  return not arg[0]
+
+def f_xor(arg):
+  return arg[0] != arg[1]
+
+def f_and(arg):
+  return arg[0] and arg[1]
+
+def f_or(arg):
+  return arg[0] or arg[1]
+
+def f_equal(arg):
+  return arg[0] == arg[1]
+
+def f_multiand(arg):
+  return all(arg)
+
+def f_multior(arg):
+  return any(arg)
+
+
+simulator = Aer.get_backend('aer_simulator')
+
+@pytest.mark.parametrize("n, oracle, f", 
+    [
+      (1, oracle_negation(), f_negation),
+      (2, oracle_xor(), f_xor),
+      (2, oracle_and(), f_and),
+      (2, oracle_or(), f_or),
+      (2, oracle_equal(), f_equal),
+      (2, oracle_multiand(2), f_multiand),
+      (3, oracle_multiand(3), f_multiand),
+      (2, oracle_multior(2), f_multior),
+      (3, oracle_multior(3), f_multior)
+    ])
+def test_logic_operation(n, oracle, f):
+  format_str = f"{{:0>{n}b}}"
+  for input in range(2 ** n):
+    input_str = format_str.format(input)
+    input_be = [input_str[i] == '1' for i in range(n)]
+
+    circ = QuantumCircuit(n + 1)
+    for i in range(n):
+      if input_be[i]:
+        circ.x(i)
+
+    circ.append(oracle, range(n + 1))
+
+    expected = f(input_be)
+    if expected:
+      circ.x(n)
+
+    for i in range(n):
+      if input_be[i]:
+        circ.x(i)
+
+    circ = circ.decompose(reps=2)
+    circ.save_statevector()
+
+    res = simulator.run(circ).result()
+    state_vector = res.get_statevector().data
+
+    non_zeros = [not isclose(amp, 0, abs_tol=1e-9) for amp in state_vector]
+    if any(non_zeros[1:]):
+      # Either result is incorrect or inputs are modified.
+      # Result is stored in most significant bit, input - in least significant bit
+      count = non_zeros.count(True)
+      if count > 1:
+        raise Exception(f"Unexpected result for input {input}: the state should not be a superposition")
+
+      index = non_zeros.index(True)
+      if index // (2 ** (n - 1)) > 0:
+        raise Exception(f"Unexpected result for input {input}: expected {expected}, got {not expected}")
+      else:
+        raise Exception(f"Unexpected result for input {input}: the state of the input qubit was modified")

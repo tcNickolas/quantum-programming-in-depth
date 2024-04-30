@@ -13,7 +13,7 @@ from qsharp import init, eval
       (2, "MultiOr"),
       (3, "MultiOr")
     ])
-def test_logic_operations(n, op):
+def test_logic_operation(n, op):
   init(project_root='.')
   eval("ReversibleComputing.Test.AssertMarkingOracleImplementsFunction(" +
        f"{n}, ReversibleComputing.{op}, ReversibleComputing.Test.F{op})")
