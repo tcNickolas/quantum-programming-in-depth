@@ -10,7 +10,7 @@ from qsharp import init, eval
       (2, "[(0, false), (1, true)]"),
       (3, "[(1, false), (2, false)]")
     ])
-def test_clause(n, clause):
+def test_evaluate_clause(n, clause):
   init(project_root='.')
   eval("ReversibleComputing.Test.AssertMarkingOracleImplementsFunction(" +
        f"{n}, ReversibleComputing.EvaluateClause(_, _, {clause}), ReversibleComputing.Test.FEvaluateClause(_, {clause}))")
@@ -26,7 +26,7 @@ def test_clause(n, clause):
       (2, "[[(0, false), (1, false)]]"),  # 3 solutions
       (3, "[[(2, false), (1, true)], [(2, true), (1, false)]]"), # 4 solutions
     ])
-def test_formula(n, formula):
+def test_evaluate_formula(n, formula):
   init(project_root='.')
   eval("ReversibleComputing.Test.AssertMarkingOracleImplementsFunction(" +
        f"{n}, ReversibleComputing.EvaluateFormula(_, _, {formula}), ReversibleComputing.Test.FEvaluateFormula(_, {formula}))")

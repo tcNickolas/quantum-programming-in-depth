@@ -34,16 +34,6 @@ namespace ReversibleComputing.Test {
   }
 
 
-  function FMultiAnd(args: Bool[]) : Bool {
-    return All(a -> a, args);
-  }
-
-
-  function FMultiOr(args: Bool[]) : Bool {
-    return Any(a -> a, args);
-  }
-
-
   function FEvaluateClause(args: Bool[], literals : (Int, Bool)[]) : Bool {
     for (ind, pos) in literals {
       if pos and args[ind] or not pos and not args[ind] {

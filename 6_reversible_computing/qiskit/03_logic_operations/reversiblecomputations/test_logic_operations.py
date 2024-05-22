@@ -4,26 +4,26 @@ import pytest
 from qiskit import QuantumCircuit
 from qiskit_aer import Aer
 
-def f_negation(arg):
-  return not arg[0]
+def f_negation(args):
+  return not args[0]
 
-def f_xor(arg):
-  return arg[0] != arg[1]
+def f_xor(args):
+  return args[0] != args[1]
 
-def f_and(arg):
-  return arg[0] and arg[1]
+def f_and(args):
+  return args[0] and args[1]
 
-def f_or(arg):
-  return arg[0] or arg[1]
+def f_or(args):
+  return args[0] or args[1]
 
-def f_equal(arg):
-  return arg[0] == arg[1]
+def f_equal(args):
+  return args[0] == args[1]
 
-def f_multiand(arg):
-  return all(arg)
+def f_multiand(args):
+  return all(args)
 
-def f_multior(arg):
-  return any(arg)
+def f_multior(args):
+  return any(args)
 
 
 simulator = Aer.get_backend('aer_simulator')
