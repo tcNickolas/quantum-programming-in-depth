@@ -59,7 +59,7 @@ def run_test_oracle(n_inputs, n_qubits, oracle, function):
       if index // (2 ** (n_qubits - 1)) > 0:
         raise Exception(f"Unexpected result for input {input}: expected {expected}, got {not expected}")
       else:
-        raise Exception(f"Unexpected result for input {input}: the state of the input qubit was modified")
+        raise Exception(f"Unexpected result for input {input}: the state of the input qubits was modified")
 
 
 

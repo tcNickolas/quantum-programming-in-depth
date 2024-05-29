@@ -25,7 +25,7 @@ namespace ReversibleComputing.Test {
           // Check that sum is correct
           ApplyPauliFromBitString(PauliX, true, sumBE, sum);
           if not CheckAllZero(sum) {
-            fail $"Unexpected result for a={a}, b={b}: expected {sum}, got the following state:";
+            fail $"Unexpected result for a={aInt}, b={bInt}: expected {sumInt}, got the following state:";
             ApplyPauliFromBitString(PauliX, true, sumBE, sum);
             DumpRegister(sum);
           }
@@ -33,7 +33,7 @@ namespace ReversibleComputing.Test {
 
         // Check that inputs are unchanged
         if not CheckAllZero(a + b) {
-          fail $"Unexpected behavior for a={a}, b={b}: the state of input qubits was modified";
+          fail $"Unexpected behavior for a={aInt}, b={bInt}: the state of input qubits was modified";
         }
       }
     }
