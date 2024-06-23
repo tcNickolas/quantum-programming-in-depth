@@ -4,14 +4,12 @@
     for q in qs {
       CNOT(q, parityQ);
     }
-    let res = MResetZ(parityQ);
-    return res == Zero ? 0 | 1;
+    return MResetZ(parityQ) == Zero ? 0 | 1;
   }
 }
 
 namespace AnalyzeStates {
   operation StateParityBuiltIn(qs : Qubit[]) : Int {
-    let res = MeasureAllZ(qs);
-    return res == Zero ? 0 | 1;
+    return MeasureAllZ(qs) == Zero ? 0 | 1;
   }
 }
