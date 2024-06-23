@@ -1,5 +1,5 @@
 from cmath import isclose
-from .marking_oracles import oracle_zero, oracle_one, oracle_x
+from .single_bit_functions import oracle_zero, oracle_one, oracle_x, oracle_one_minus_x
 import pytest
 from qiskit import QuantumCircuit
 from qiskit_aer import Aer
@@ -13,12 +13,16 @@ def f_one(arg):
 def f_x(arg):
   return arg
 
+def f_one_minus_x(arg):
+  return not arg
+
 simulator = Aer.get_backend('aer_simulator')
 
 @pytest.mark.parametrize("oracle,f",
                          [(oracle_zero, f_zero),
                           (oracle_one, f_one),
-                          (oracle_x, f_x)])
+                          (oracle_x, f_x),
+                          (oracle_one_minus_x, f_one_minus_x)])
 def test_marking_oracle(oracle, f):
   for input in [False, True]:
     circ = QuantumCircuit(2)
@@ -33,7 +37,7 @@ def test_marking_oracle(oracle, f):
     if input:
       circ.x(0)
 
-    circ = circ.decompose()
+    circ = circ.decompose(reps=3)
     circ.save_statevector()
 
     res = simulator.run(circ).result()

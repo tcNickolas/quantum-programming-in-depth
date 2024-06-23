@@ -1,4 +1,5 @@
 from qiskit import QuantumCircuit
+from qiskit.circuit.library.standard_gates import XGate
 
 def oracle_zero():
   circ = QuantumCircuit(2)
@@ -13,4 +14,9 @@ def oracle_one():
 def oracle_x():
   circ = QuantumCircuit(2)
   circ.cx(0, 1)
+  return circ
+
+def oracle_one_minus_x():
+  circ = QuantumCircuit(2)
+  circ.append(XGate().control(1, ctrl_state=0), [0, 1])
   return circ
