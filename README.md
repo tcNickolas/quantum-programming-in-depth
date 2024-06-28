@@ -1,6 +1,8 @@
 # Quantum Programming In Depth Samples
 Code samples for the book ["Quantum Programming In Depth: Solving Problems with Q# and Qiskit"](https://mng.bz/M1R7) by Mariia Mykhailova.
 
+![DOTD_NewMEAP_Mykhailova](https://github.com/tcNickolas/quantum-programming-in-depth/assets/10113024/c927bf55-fd0a-4958-abc4-80ecd95428c1)
+
 ### [Chapter 2. Prepare Quantum States](./2_state_preparation/)
 
 ### [Chapter 3. Implement Quantum Operations](./3_unitary_implementation/)
