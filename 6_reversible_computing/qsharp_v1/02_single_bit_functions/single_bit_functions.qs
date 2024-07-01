@@ -2,34 +2,35 @@
   open Microsoft.Quantum.Diagnostics;
   open Microsoft.Quantum.Math;
 
-  operation OracleZero(x : Qubit, y : Qubit) : Unit is Adj + Ctl {
+  operation QuantumZero(x : Qubit, y : Qubit) : Unit {
     // Do nothing.
   }
 
-  operation OracleOne(x : Qubit, y : Qubit) : Unit is Adj + Ctl {
+  operation QuantumOne(x : Qubit, y : Qubit) : Unit {
     X(y);
   }
 
-  operation OracleX(x : Qubit, y : Qubit) : Unit is Adj + Ctl {
+  operation QuantumX(x : Qubit, y : Qubit) : Unit {
     CNOT(x, y);
   }
 
-  operation OracleOneMinusX(x : Qubit, y : Qubit) : Unit is Adj + Ctl {
+  operation QuantumOneMinusX(x : Qubit, y : Qubit) : Unit {
     ApplyControlledOnInt(0, X, [x], y);
   }
 
+
   @EntryPoint()
   operation DemoSingleBitFunctions() : Unit {
-    for (oracle, f) in [
-      (OracleZero, "f(x) = 0"),
-      (OracleOne, "f(x) = 1"),
-      (OracleX, "f(x) = x"),
-      (OracleOneMinusX, "f(x) = 1 - x")
+    for (quantumOp, f) in [
+      (QuantumZero, "f(x) = 0"),
+      (QuantumOne, "f(x) = 1"),
+      (QuantumX, "f(x) = x"),
+      (QuantumOneMinusX, "f(x) = 1 - x")
     ] {
-      Message($"The effects of applying the oracle {f} to the state (0.6|0⟩ + 0.8|1⟩) ⨂ |0⟩:");
+      Message($"The effects of applying the quantum {f} to the state (0.6|0⟩ + 0.8|1⟩) ⨂ |0⟩:");
       use (x, y) = (Qubit(), Qubit());
       Ry(2.0 * ArcCos(0.6), x);
-      oracle(x, y);
+      quantumOp(x, y);
       DumpMachine();
       ResetAll([x, y]);
     }

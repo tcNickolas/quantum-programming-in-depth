@@ -15,5 +15,5 @@ from qsharp import init, eval
     ])
 def test_logic_operation(n, op):
   init(project_root='.')
-  eval("ReversibleComputing.Test.AssertMarkingOracleImplementsFunction(" +
+  eval("ReversibleComputing.Test.AssertOperationImplementsFunction(" +
        f"{n}, ReversibleComputing.{op}, ReversibleComputing.Test.F{op})")

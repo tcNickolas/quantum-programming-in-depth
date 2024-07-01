@@ -1,8 +1,8 @@
 from cmath import isclose
-from .single_bit_functions import oracle_zero, oracle_one, oracle_x, oracle_one_minus_x
-import pytest
 from qiskit import QuantumCircuit
 from qiskit_aer import Aer
+import pytest
+from .single_bit_functions import *
 
 def f_zero(arg):
   return False
@@ -18,17 +18,17 @@ def f_one_minus_x(arg):
 
 simulator = Aer.get_backend('aer_simulator')
 
-@pytest.mark.parametrize("oracle,f",
-                         [(oracle_zero, f_zero),
-                          (oracle_one, f_one),
-                          (oracle_x, f_x),
-                          (oracle_one_minus_x, f_one_minus_x)])
-def test_marking_oracle(oracle, f):
+@pytest.mark.parametrize("quantum_op,f",
+                         [(quantum_zero, f_zero),
+                          (quantum_one, f_one),
+                          (quantum_x, f_x),
+                          (quantum_one_minus_x, f_one_minus_x)])
+def test_reversible_computation(quantum_op, f):
   for input in [False, True]:
     circ = QuantumCircuit(2)
     if input:
       circ.x(0)
-    circ.append(oracle(), [0, 1])
+    circ.append(quantum_op(), [0, 1])
 
     expected = f(input)
     if expected:
@@ -47,12 +47,13 @@ def test_marking_oracle(oracle, f):
     if any(non_zeros[1:]):
       # Either result is incorrect or inputs are modified.
       # Result is stored in most significant bit, input - in least significant bit
+      prefix = f"Error for x={input}:"
       count = non_zeros.count(True)
       if count > 1:
-        raise Exception(f"Unexpected result for input {input}: the state should not be a superposition")
+        raise Exception(f"{prefix} the state should not be a superposition")
 
       index = non_zeros.index(True)
       if index // 2 > 0:
-        raise Exception(f"Unexpected result for input {input}: expected {expected}, got {not expected}")
+        raise Exception(f"{prefix} expected {expected}, got {not expected}")
       else:
-        raise Exception(f"Unexpected result for input {input}: the state of the input qubit was modified")
+        raise Exception(f"{prefix} the state of the input qubit changed")
