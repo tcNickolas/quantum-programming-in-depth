@@ -14,21 +14,13 @@
   }
 
   operation Or(x : Qubit[], y : Qubit) : Unit is Adj + Ctl {
-    within {
-      X(x[0]);
-      X(x[1]);
-    } apply {
-      CCNOT(x[0], x[1], y);
-    }
+    ApplyControlledOnInt(0, X, x, y);
     X(y);
   }
 
   operation Equality(x : Qubit[], y : Qubit) : Unit is Adj + Ctl {
-    within {
-      CNOT(x[0], x[1]);
-    } apply {
-      CNOT(x[1], y);
-    }
+    CNOT(x[0], y);
+    CNOT(x[1], y);
     X(y);
   }
 

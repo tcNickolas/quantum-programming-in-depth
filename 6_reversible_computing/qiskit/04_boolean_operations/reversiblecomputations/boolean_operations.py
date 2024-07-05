@@ -1,7 +1,7 @@
 from qiskit import QuantumCircuit
 from qiskit.circuit.library.standard_gates import XGate
 
-def quantum_negation():
+def quantum_not():
   circ = QuantumCircuit(2)
   circ.cx(0, 1)
   circ.x(1)
@@ -13,6 +13,13 @@ def quantum_xor():
   circ.cx(1, 2)
   return circ
 
+def quantum_equal():
+  circ = QuantumCircuit(3)
+  circ.cx(0, 2)
+  circ.cx(1, 2)
+  circ.x(2)
+  return circ
+
 def quantum_and():
   circ = QuantumCircuit(3)
   circ.ccx(0, 1, 2)
@@ -20,19 +27,7 @@ def quantum_and():
 
 def quantum_or():
   circ = QuantumCircuit(3)
-  circ.x(0)
-  circ.x(1)
-  circ.ccx(0, 1, 2)
-  circ.x(0)
-  circ.x(1)
-  circ.x(2)
-  return circ
-
-def quantum_equal():
-  circ = QuantumCircuit(3)
-  circ.cx(0, 1)
-  circ.cx(1, 2)
-  circ.cx(0, 1)
+  circ.append(XGate().control(2, ctrl_state=0), [0, 1, 2])
   circ.x(2)
   return circ
 

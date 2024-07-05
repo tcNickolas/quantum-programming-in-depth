@@ -2,9 +2,9 @@ from cmath import isclose
 from qiskit import QuantumCircuit
 from qiskit_aer import Aer
 import pytest
-from .logic_operations import *
+from .boolean_operations import *
 
-def f_negation(args):
+def f_not(args):
   return not args[0]
 
 def f_xor(args):
@@ -30,7 +30,7 @@ simulator = Aer.get_backend('aer_simulator')
 
 @pytest.mark.parametrize("n, quantum_op, f", 
     [
-      (1, quantum_negation(), f_negation),
+      (1, quantum_not(), f_not),
       (2, quantum_xor(), f_xor),
       (2, quantum_and(), f_and),
       (2, quantum_or(), f_or),
