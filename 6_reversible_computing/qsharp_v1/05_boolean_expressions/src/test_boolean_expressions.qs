@@ -1,34 +1,32 @@
 namespace ReversibleComputing.Test {
-  open Microsoft.Quantum.Logical;
   open Microsoft.Quantum.Convert;
-  open Microsoft.Quantum.Arrays;
   open Microsoft.Quantum.Diagnostics;
   open ReversibleComputing;
 
-  operation AssertMarkingOracleImplementsFunction(
+  operation AssertOperationImplementsFunction(
     N : Int, 
-    oracle : (Qubit[], Qubit) => Unit, 
+    op : (Qubit[], Qubit) => Unit, 
     f : Bool[] -> Bool
   ) : Unit {
     use (x, y) = (Qubit[N], Qubit());
     for input in 0 .. (1 <<< N) - 1 {
-      let inputBE = Reversed(IntAsBoolArray(input, N));
-      ApplyPauliFromBitString(PauliX, true, inputBE, x);
+      let inBits = IntAsBoolArray(input, N);
+      ApplyPauliFromBitString(PauliX, true, inBits, x);
 
-      oracle(x, y);
+      op(x, y);
 
-      let expected = f(inputBE);
+      let expected = f(inBits);
       if expected {
         X(y);
       }
 
-      if not CheckAllZero([y]) {
-        fail $"Unexpected result for input {inputBE}: expected {expected}, got {not expected}";
-      }
+      ApplyPauliFromBitString(PauliX, true, inBits, x);
 
-      ApplyPauliFromBitString(PauliX, true, inputBE, x);
+      if not CheckAllZero([y]) {
+        fail $"Error for x={inBits}: expected {expected}, got {not expected}";
+      }
       if not CheckAllZero(x) {
-        fail $"Unexpected behavior for input {inputBE}: the state of input qubits was modified";
+        fail $"Error for x={inBits}: the state of input qubits was modified";
       }
     }
   }
@@ -44,8 +42,8 @@ namespace ReversibleComputing.Test {
   }
 
 
-  function FEvaluateFormula(args: Bool[], formula : (Int, Bool)[][]) : Bool {
-    for clause in formula {
+  function FEvaluateExpression(args: Bool[], expression : (Int, Bool)[][]) : Bool {
+    for clause in expression {
       if not FEvaluateClause(args, clause) {
         return false;
       }

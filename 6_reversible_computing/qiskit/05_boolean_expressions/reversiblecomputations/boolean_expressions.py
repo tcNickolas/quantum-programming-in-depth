@@ -1,13 +1,13 @@
 from qiskit import QuantumCircuit
 from qiskit.circuit.library.standard_gates import XGate
 
-def oracle_multiand(n):
+def quantum_multiand(n):
   circ = QuantumCircuit(n + 1)
   circ.append(XGate().control(n), range(n + 1))
   return circ
 
 
-def oracle_multior(n):
+def quantum_multior(n):
   circ = QuantumCircuit(n + 1)
   circ.append(XGate().control(n, ctrl_state=0), range(n + 1))
   circ.x(n)
@@ -25,7 +25,7 @@ def evaluate_clause(n, literals):
     if not neg:
       circ.x(ind)
   
-  circ.append(oracle_multior(len(controls)), controls + [n])
+  circ.append(quantum_multior(len(controls)), controls + [n])
   
   for (ind, neg) in literals:
     if not neg:
@@ -34,19 +34,20 @@ def evaluate_clause(n, literals):
   return circ
 
 
-def evaluate_formula(n, formula):
-  n_clauses = len(formula)
+def evaluate_expression(n, expression):
+  n_clauses = len(expression)
   circ = QuantumCircuit(n + n_clauses + 1)
   if n_clauses == 0:
     circ.x(n)
     return circ
   
-  for (ind, clause) in enumerate(formula):
-    circ.append(evaluate_clause(n, clause), list(range(n)) + [n + ind])
+  for (ind, clause) in enumerate(expression):
+    circ.append(evaluate_clause(n, clause), 
+                list(range(n)) + [n + ind])
 
-  circ.append(oracle_multiand(n_clauses), range(n, n + n_clauses + 1))
+  circ.append(quantum_multiand(n_clauses), range(n, n + n_clauses + 1))
 
-  for (ind, clause) in enumerate(formula):
+  for (ind, clause) in enumerate(expression):
     circ.append(evaluate_clause(n, clause), list(range(n)) + [n + ind])
 
   return circ

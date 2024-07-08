@@ -12,11 +12,12 @@ from qsharp import init, eval
     ])
 def test_evaluate_clause(n, clause):
   init(project_root='.')
-  eval("ReversibleComputing.Test.AssertMarkingOracleImplementsFunction(" +
-       f"{n}, ReversibleComputing.EvaluateClause(_, _, {clause}), ReversibleComputing.Test.FEvaluateClause(_, {clause}))")
+  eval("ReversibleComputing.Test.AssertOperationImplementsFunction(" +
+       f"{n}, ReversibleComputing.EvaluateClause(_, _, {clause}), " + 
+       f"ReversibleComputing.Test.FEvaluateClause(_, {clause}))")
 
 
-@pytest.mark.parametrize("n, formula", 
+@pytest.mark.parametrize("n, expression", 
     [
       (1, "[[(0, true)], [(0, false)]]"), # 0 solutions
       (1, "[[(0, false)]]"),              # 1 solution
@@ -26,7 +27,8 @@ def test_evaluate_clause(n, clause):
       (2, "[[(0, false), (1, false)]]"),  # 3 solutions
       (3, "[[(2, false), (1, true)], [(2, true), (1, false)]]"), # 4 solutions
     ])
-def test_evaluate_formula(n, formula):
+def test_evaluate_expression(n, expression):
   init(project_root='.')
-  eval("ReversibleComputing.Test.AssertMarkingOracleImplementsFunction(" +
-       f"{n}, ReversibleComputing.EvaluateFormula(_, _, {formula}), ReversibleComputing.Test.FEvaluateFormula(_, {formula}))")
+  eval("ReversibleComputing.Test.AssertOperationImplementsFunction(" +
+       f"{n}, ReversibleComputing.EvaluateExpression(_, _, {expression}), " +
+       f"ReversibleComputing.Test.FEvaluateExpression(_, {expression}))")

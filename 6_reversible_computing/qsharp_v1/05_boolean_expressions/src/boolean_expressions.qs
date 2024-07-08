@@ -22,11 +22,11 @@
     }
   }
 
-  operation EvaluateFormula(x : Qubit[], y : Qubit, formula : (Int, Bool)[][]) : Unit is Adj + Ctl {
-    let nClauses = Length(formula);
+  operation EvaluateExpression(x : Qubit[], y : Qubit, expression : (Int, Bool)[][]) : Unit is Adj + Ctl {
+    let nClauses = Length(expression);
     use clauseResults = Qubit[nClauses];
     within {
-      for (clause, result) in Zipped(formula, clauseResults) {
+      for (clause, result) in Zipped(expression, clauseResults) {
         EvaluateClause(x, result, clause);
       }
     } apply {

@@ -1,5 +1,5 @@
 from cmath import isclose
-from .boolean_expressions import evaluate_clause, evaluate_formula
+from .boolean_expressions import *
 import pytest
 from qiskit import QuantumCircuit
 from qiskit_aer import Aer
@@ -11,8 +11,8 @@ def f_evaluate_clause(args, literals):
       return True
   return False
 
-def f_evaluate_formula(args, formula):
-  for clause in formula:
+def f_evaluate_expression(args, expression):
+  for clause in expression:
     if not f_evaluate_clause(args, clause):
       return False
   return True
@@ -20,7 +20,7 @@ def f_evaluate_formula(args, formula):
 
 simulator = Aer.get_backend('aer_simulator')
 
-def run_test_oracle(n_inputs, n_qubits, oracle, function):
+def run_test_reversible(n_inputs, n_qubits, operation, function):
   format_str = f"{{:0>{n_inputs}b}}"
   for input in range(2 ** n_inputs):
     input_str = format_str.format(input)
@@ -31,7 +31,7 @@ def run_test_oracle(n_inputs, n_qubits, oracle, function):
       if input_be[i]:
         circ.x(i)
 
-    circ.append(oracle(n_inputs), range(n_qubits))
+    circ.append(operation(n_inputs), range(n_qubits))
 
     expected = function(input_be)
     if expected:
@@ -51,15 +51,16 @@ def run_test_oracle(n_inputs, n_qubits, oracle, function):
     if any(non_zeros[1:]):
       # Either result is incorrect or inputs are modified.
       # Result is stored in most significant bit, input - in least significant bit
+      prefix = f"Error for x={input}:"
       count = non_zeros.count(True)
       if count > 1:
-        raise Exception(f"Unexpected result for input {input}: the state should not be a superposition")
+        raise Exception(f"{prefix} the state should not be a superposition")
 
       index = non_zeros.index(True)
       if index // (2 ** (n_qubits - 1)) > 0:
-        raise Exception(f"Unexpected result for input {input}: expected {expected}, got {not expected}")
+        raise Exception(f"{prefix} expected {expected}, got {not expected}")
       else:
-        raise Exception(f"Unexpected result for input {input}: the state of the input qubits was modified")
+        raise Exception(f"{prefix} the state of the input qubits was modified")
 
 
 
@@ -75,10 +76,10 @@ def run_test_oracle(n_inputs, n_qubits, oracle, function):
 def test_evaluate_clause(n, clause):
   oracle = partial(evaluate_clause, literals=clause)
   function = partial(f_evaluate_clause, literals=clause)
-  run_test_oracle(n, n + 1, oracle, function)
+  run_test_reversible(n, n + 1, oracle, function)
 
 
-@pytest.mark.parametrize("n, formula", 
+@pytest.mark.parametrize("n, expression", 
     [
       (1, [[(0, True)], [(0, False)]]), # 0 solutions
       (1, [[(0, False)]]),              # 1 solution
@@ -88,7 +89,7 @@ def test_evaluate_clause(n, clause):
       (2, [[(0, False), (1, False)]]),  # 3 solutions
       (3, [[(2, False), (1, True)], [(2, True), (1, False)]]), # 4 solutions
     ])
-def test_evaluate_formula(n, formula):
-  oracle = partial(evaluate_formula, formula=formula)
-  function = partial(f_evaluate_formula, formula=formula)
-  run_test_oracle(n, n + len(formula) + 1, oracle, function)
+def test_evaluate_formula(n, expression):
+  oracle = partial(evaluate_expression, expression=expression)
+  function = partial(f_evaluate_expression, expression=expression)
+  run_test_reversible(n, n + len(expression) + 1, oracle, function)
