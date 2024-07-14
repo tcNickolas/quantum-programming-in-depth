@@ -7,19 +7,7 @@ def run_test_prep_multi_qubit(n, a):
   qsharp.init(project_root='.')
   qsharp.eval(f"use qs = Qubit[{n}]; StatePreparation.PrepArbitrary(qs, {a});")
   state = qsharp.dump_machine()
-
-  # Find global phase difference
-  global_phase = -2
-  for ind in range(len(a)):
-    if abs(a[ind]) > 1E-9:
-        global_phase = state[ind] / a[ind]
-        break
-
-  for ind in range(len(a)):
-    if abs(a[ind]) > 1E-9:
-      assert state[ind] == pytest.approx(a[ind] * global_phase)
-    else:
-      assert ind not in state
+  assert state.check_eq(a)
 
 
 def test_basis_states():
