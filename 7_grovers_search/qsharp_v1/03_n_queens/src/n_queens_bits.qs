@@ -4,7 +4,7 @@ namespace NQueens {
   open Microsoft.Quantum.Math;
   open Microsoft.Quantum.Unstable.StatePreparation;
 
-  function GetMeanAmps(n : Int) : Double[] {
+  function GetMeanAmps_Bits(n : Int) : Double[] {
     mutable amps = [0.0, size = 2 ^ n];
     for i in 0 .. n - 1 {
       set amps w/= (1 <<< i) <- Sqrt(1.0 / IntAsDouble(n));
@@ -12,11 +12,11 @@ namespace NQueens {
     return amps;
   }
 
-  operation PrepareMean(n : Int, qs : Qubit[]) : Unit is Adj {
+  operation PrepareMean_Bits(n : Int, qs : Qubit[]) : Unit is Adj {
     // W state on each row of n qubits
-    let wstateAmps = GetMeanAmps(n);
+    let wstateAmps = GetMeanAmps_Bits(n);
     for row in Chunks(n, qs) {
-      PreparePureStateD(GetMeanAmps(n), row);
+      PreparePureStateD(wstateAmps, row);
     }
   }
 
@@ -33,7 +33,7 @@ namespace NQueens {
     return -1;
   }
 
-  operation NQueensOracle(n : Int, x : Qubit[], y : Qubit) : Unit {
+  operation NQueensOracle_Bits(n : Int, x : Qubit[], y : Qubit) : Unit {
     // The presence of a queen in row r and column c is described with x[r * n + c].
     use (validColumn, invalidRowPair) = (Qubit[n - 1], Qubit[n * (n - 1) / 2]);
     within {
