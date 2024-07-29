@@ -33,7 +33,7 @@ namespace NQueens {
     return -1;
   }
 
-  operation NQueensOracle_Bits(n : Int, x : Qubit[], y : Qubit) : Unit {
+  operation Oracle_Bits(n : Int, x : Qubit[], y : Qubit) : Unit {
     // The presence of a queen in row r and column c is described with x[r * n + c].
     use (validColumn, invalidRowPair) = (Qubit[n - 1], Qubit[n * (n - 1) / 2]);
     within {

@@ -9,4 +9,4 @@ from qsharp import init, eval
   ])
 def test_nqueens(n, mode):
   init(project_root='.')
-  eval(f"NQueens.Test.AssertOracleIsValid({n}, NQueens.Test.IntAsEncoding_{mode}, NQueens.NQueensOracle_{mode}, NQueens.Test.IsEncodingValid_{mode})")
+  eval(f"NQueens.Test.AssertOracleIsValid({n}, NQueens.Test.IntAsEncoding_{mode}, NQueens.Oracle_{mode}, NQueens.Test.IsEncodingValid_{mode})")

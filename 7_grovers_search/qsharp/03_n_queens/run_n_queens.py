@@ -1,3 +1,4 @@
+from itertools import permutations
 from qsharp import init, eval
 from time import time
 
@@ -10,7 +11,6 @@ def check_placement_bits(n, bits):
       if board[r][c]:
         n_q += 1
     if n_q != 1:
-    #   print(f"Row {r} has {n_q} queens")
       return False
   indices = [row.index(True) for row in board]
   return check_one_queen_per_column_diagonal(n, indices)
@@ -33,14 +33,29 @@ def check_one_queen_per_column_diagonal(n, indices):
   return True
 
 # Run Grover's search end-to-end and print the frequency of correct results
-n_rows = 4
+n_rows = 5
 mode = "Indices"
+optimize = True
 if mode == "Bits":
   n_bits = n_rows ** 2
   check = check_placement_bits
+  oracle = f"NQueens.Oracle_{mode}({n_rows}, _, _)"
+  prep_mean = f"NQueens.PrepareMean_{mode}({n_rows}, _)"
 else:
-  n_bits = n_rows * (n_rows - 1).bit_length()
+  index_size = (n_rows - 1).bit_length()
+  n_bits = n_rows * index_size
   check = check_placement_indices
+  oracle = f"NQueens.Oracle_{mode}({n_rows}, _, _)"
+  if not optimize:
+    prep_mean = f"NQueens.PrepareMean_{mode}({n_rows}, _)"
+  else:
+    # Precompute the amplitudes of the mean and pass them to Q#
+    perms = list(permutations(range(n_rows)))
+    non_zero_indices = [int("".join([str(ind) for ind in perm]), 2 ** index_size) for perm in perms]
+    mean_amps = [0.] * (2 ** n_bits)
+    for ind in non_zero_indices:
+      mean_amps[ind] = 1.
+    prep_mean = f"NQueens.PrepareMean_{mode}_Opt({mean_amps}, _)"
 
 # Search space size = for each row, can have one of n_rows basis states -> n_rows ^ n_rows
 # (does not depend on the encoding we use)
@@ -54,7 +69,7 @@ for n_iter in range(1, 10):
   start_time = time()
   for _ in range(n_runs):
     res_bits = eval("GroversSearch.RunGroversSearch(" +
-      f"{n_bits}, NQueens.NQueensOracle_{mode}({n_rows}, _, _), NQueens.PrepareMean_{mode}({n_rows}, _), {n_iter})")
+      f"{n_bits}, {oracle}, {prep_mean}, {n_iter})")
     if check(n_rows, res_bits):
       n_correct += 1
   end_time = time()

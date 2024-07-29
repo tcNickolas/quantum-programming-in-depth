@@ -14,20 +14,19 @@ namespace NQueens {
   }
 
   operation PrepareMean_Indices(n : Int, qs : Qubit[]) : Unit is Adj {
-    let opt = true;
-    if not opt or n != 4 {
-      // Even superposition of the first n basis states
-      let meanAmps = [1.0 / Sqrt(IntAsDouble(n)), size = n];
-      for row in Chunks(BitSizeI(n - 1), qs) {
-        PreparePureStateD(meanAmps, row);
-      }
-    } else {
-      // Only superpositions that are permutations of distinct queen indices
-      PreparePureStateD(GetMeanAmps_Indices4(), qs);
+    // Even superposition of the first n basis states
+    let meanAmps = [1.0 / Sqrt(IntAsDouble(n)), size = n];
+    for row in Chunks(BitSizeI(n - 1), qs) {
+      PreparePureStateD(meanAmps, row);
     }
   }
 
-  operation NQueensOracle_Indices(n : Int, x : Qubit[], y : Qubit) : Unit {
+  operation PrepareMean_Indices_Opt(meanAmps : Double[], qs : Qubit[]) : Unit is Adj {
+    // The amplitudes passed from Python
+    PreparePureStateD(meanAmps, qs);
+  }
+
+  operation Oracle_Indices(n : Int, x : Qubit[], y : Qubit) : Unit {
     let bitSize = BitSizeI(n - 1);
     let indices = Chunks(bitSize, x);
     // The presence of a queen in row r and column c is described 
