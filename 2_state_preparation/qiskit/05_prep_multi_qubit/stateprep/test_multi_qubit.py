@@ -1,6 +1,6 @@
 from .prep_multi_qubit import prep_multi_qubit
+import pytest
 from math import sqrt
-from pytest import approx
 from qiskit_aer import Aer
 from random import randint, uniform
 
@@ -15,7 +15,7 @@ def run_test_prep_multi_qubit(n, a):
   res = simulator.run(circ).result()
   state_vector = res.get_statevector().data
 
-  assert state_vector == approx(a)
+  assert state_vector == pytest.approx(a)
 
 def test_basis_states():
   for n in range(1, 4):
@@ -24,23 +24,21 @@ def test_basis_states():
       a[basis] = 1.
       run_test_prep_multi_qubit(n, a)
 
-def test_equal_superpositions():
-  run_test_prep_multi_qubit(2, [0.5, 0.5, 0.5, 0.5])
-  run_test_prep_multi_qubit(2, [0.5, -0.5, 0.5, 0.5])
-  run_test_prep_multi_qubit(2, [0.5, 0.5, -0.5, 0.5])
-  run_test_prep_multi_qubit(2, [0.5, 0.5, 0.5, -0.5])
-
-def test_bell_states():
-  run_test_prep_multi_qubit(2, [1. / sqrt(2.), 0., 0., 1. / sqrt(2.)])
-  run_test_prep_multi_qubit(2, [1. / sqrt(2.), 0., 0., -1. / sqrt(2.)])
-  run_test_prep_multi_qubit(2, [0., 1.0 / sqrt(2.), 1. / sqrt(2.), 0.])
-  run_test_prep_multi_qubit(2, [0., 1.0 / sqrt(2.), -1. / sqrt(2.), 0.])
-
-def test_unequal_superpositions():
-  run_test_prep_multi_qubit(1, [0.6, 0.8])
-  run_test_prep_multi_qubit(1, [0.6, -0.8])
-  run_test_prep_multi_qubit(2, [0.36, 0.48, 0.64, -0.48])
-  run_test_prep_multi_qubit(2, [1. / sqrt(3.), -1. / sqrt(3.), 1. / sqrt(3.), 0.])
+@pytest.mark.parametrize("a",
+    [ [0.5, 0.5, 0.5, 0.5],
+      [-0.5, 0.5, 0.5, -0.5],
+      [0.5, -0.5, 0.5, 0.5],
+      [0.5, 0.5, -0.5, 0.5],
+      [0.5, 0.5, 0.5, -0.5],
+      [1. / sqrt(2.), 0., 0., 1. / sqrt(2.)],
+      [1. / sqrt(2.), 0., 0., -1. / sqrt(2.)],
+      [0., 1. / sqrt(2.), 1. / sqrt(2.), 0.],
+      [0., 1. / sqrt(2.), -1. / sqrt(2.), 0.],
+      [0.36, 0.48, 0.64, -0.48],
+      [1. / sqrt(3.), -1. / sqrt(3.), 1. / sqrt(3.), 0.]
+    ])
+def test_prep_two_qubits(a):
+  run_test_prep_multi_qubit(2, a)
 
 def test_random_unequal_superpositions():
   for i in range(10):
