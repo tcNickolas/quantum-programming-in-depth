@@ -1,5 +1,6 @@
 ﻿namespace GroversSearch {
   open Microsoft.Quantum.Arrays;
+  open Microsoft.Quantum.Diagnostics;
 
   operation MarkStates(x : Qubit[], y : Qubit, markedStates : Int[]) : Unit {
     for state in markedStates {
@@ -16,5 +17,13 @@
     } apply {
       markingOracle(x, aux);
     }
+  }
+
+  operation Main() : Unit {
+    use x = Qubit[3];
+    ApplyToEach(H, x);
+    let markingOracle = MarkStates(_, _, [1, 6]);
+    ApplyPhaseOracle(x, markingOracle);
+    DumpMachine();
   }
 }
