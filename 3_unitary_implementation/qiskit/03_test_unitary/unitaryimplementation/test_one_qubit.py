@@ -1,10 +1,19 @@
-from .one_qubit_unitary import apply_one_qubit
-from math import pi, cos, sin
-from random import random, randint
-from pytest import approx
+from math import cos, pi, sin
+from random import randint, random
+import pytest
 from qiskit.quantum_info import Operator
+from .one_qubit_unitary import apply_one_qubit
 
-def run_test_apply_one_qubit(u):
+@pytest.mark.parametrize("u",
+    [ [[1.0, 0.0], [0.0, 1.0]],
+      [[1.0, 0.0], [0.0, -1.0]],
+      [[-1.0, 0.0], [0.0, 1.0]],
+      [[-1.0, 0.0], [0.0, -1.0]],
+      [[0.0, 1.0], [1.0, 0.0]],
+      [[0.0, 1.0], [-1.0, 0.0]],
+      [[0.0, -1.0], [1.0, 0.0]],
+      [[0.0, -1.0], [-1.0, 0.0]] ])
+def test_apply_one_qubit(u):
   assert len(u) == 2
   for row in u:
     assert len(row) == 2
@@ -13,17 +22,7 @@ def run_test_apply_one_qubit(u):
   matrix = op.data
 
   for actual, expected in zip(matrix, u):
-    assert actual == approx(expected)
-
-def test_diag_antidiag():
-  run_test_apply_one_qubit([[1., 0.], [0., 1.]])
-  run_test_apply_one_qubit([[1., 0.], [0., -1.]])
-  run_test_apply_one_qubit([[-1., 0.], [0., 1.]])
-  run_test_apply_one_qubit([[-1., 0.], [0., -1.]])
-  run_test_apply_one_qubit([[0., 1.], [1., 0.]])
-  run_test_apply_one_qubit([[0., 1.], [-1., 0.]])
-  run_test_apply_one_qubit([[0., -1.], [1., 0.]])
-  run_test_apply_one_qubit([[0., -1.], [-1., 0.]])
+    assert actual == pytest.approx(expected)
 
 def random_one_qubit_unitary():
   theta = random() * 2 * pi
@@ -33,4 +32,4 @@ def random_one_qubit_unitary():
 
 def test_dense():
   for _ in range(1, 20):
-    run_test_apply_one_qubit(random_one_qubit_unitary())
+    test_apply_one_qubit(random_one_qubit_unitary())

@@ -1,7 +1,5 @@
 ﻿namespace StatePreparation {
-  open Microsoft.Quantum.Canon;
   open Microsoft.Quantum.Diagnostics;
-  open Microsoft.Quantum.Intrinsic;
   open Microsoft.Quantum.Math;
 
   operation PrepOneQubit(q : Qubit, alpha : Double, beta : Double) : Unit
@@ -13,11 +11,11 @@
   operation PrepTwoQubits(qs : Qubit[], a : Double[]) : Unit is Adj + Ctl {
     let b0 = Sqrt(a[0] * a[0] + a[2] * a[2]);
     let b1 = Sqrt(a[1] * a[1] + a[3] * a[3]);
-    PrepOneQubit(qs[0], b0, b1);
+    PrepOneQubit(qs[1], b0, b1);
 
-    Controlled PrepOneQubit([qs[0]], (qs[1], a[1], a[3]));
+    Controlled PrepOneQubit([qs[1]], (qs[0], a[1], a[3]));
 
-    ControlledOnInt(0, PrepOneQubit)([qs[0]], (qs[1], a[0], a[2]));
+    ApplyControlledOnInt(0, PrepOneQubit, [qs[1]], (qs[0], a[0], a[2]));
   }
 
   operation PrepTwoQubitsDemo(a : Double[]) : Unit {
