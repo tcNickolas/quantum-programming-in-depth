@@ -36,6 +36,7 @@
     }
   }
 
+
   operation ApplyPhaseOracle(x : Qubit[], markingOracle : (Qubit[], Qubit) => Unit) : Unit {
     use aux = Qubit();
     within {
