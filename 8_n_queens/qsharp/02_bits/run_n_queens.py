@@ -1,4 +1,3 @@
-from itertools import permutations
 from qsharp import init, eval
 from time import time
 
@@ -15,13 +14,6 @@ def check_placement_bits(n, bits):
   indices = [row.index(True) for row in board]
   return check_one_queen_per_column_diagonal(n, indices)
 
-def check_placement_indices(n, bits):
-  bitsize = (n - 1).bit_length()
-  indices = [int("".join(["1" if b else "0" for b in bits[bitsize * row:bitsize * (row + 1)]]), 2) for row in range(n)]
-  for index in indices:
-    if index < 0 or index >= n:
-      return False
-  return check_one_queen_per_column_diagonal(n, indices)
 
 def check_one_queen_per_column_diagonal(n, indices):
   for r1 in range(n):
@@ -32,38 +24,21 @@ def check_one_queen_per_column_diagonal(n, indices):
         return False
   return True
 
+
 # Run Grover's search end-to-end and print the frequency of correct results
-n_rows = 5
-mode = "Indices"
-optimize = True
-if mode == "Bits":
-  n_bits = n_rows ** 2
-  check = check_placement_bits
-  oracle = f"NQueens.Oracle_{mode}({n_rows}, _, _)"
-  prep_mean = f"NQueens.PrepareMean_{mode}({n_rows}, _)"
-else:
-  index_size = (n_rows - 1).bit_length()
-  n_bits = n_rows * index_size
-  check = check_placement_indices
-  oracle = f"NQueens.Oracle_{mode}({n_rows}, _, _)"
-  if not optimize:
-    prep_mean = f"NQueens.PrepareMean_{mode}({n_rows}, _)"
-  else:
-    # Precompute the amplitudes of the mean and pass them to Q#
-    perms = list(permutations(range(n_rows)))
-    non_zero_indices = [int("".join([str(ind) for ind in perm]), 2 ** index_size) for perm in perms]
-    mean_amps = [0.] * (2 ** n_bits)
-    for ind in non_zero_indices:
-      mean_amps[ind] = 1.
-    prep_mean = f"NQueens.PrepareMean_{mode}_Opt({mean_amps}, _)"
+n_rows = 4
+n_bits = n_rows ** 2
+check = check_placement_bits
+oracle = f"NQueens.Oracle_Bits({n_rows}, _, _)"
+prep_mean = f"NQueens.PrepareMean_Bits({n_rows}, _)"
 
 # Search space size = for each row, can have one of n_rows basis states -> n_rows ^ n_rows
 # (does not depend on the encoding we use)
 search_space_size = n_rows ** n_rows # 256
 
-print(f"Running for board size {n_rows}, mode = {mode}")
+print(f"Running for board size {n_rows}, mode = Bits")
 init(project_root='.')
-for n_iter in range(1, 10):
+for n_iter in range(4, 10):
   n_runs = 100
   n_correct = 0
   start_time = time()

@@ -5,26 +5,41 @@ namespace NQueens {
   open Microsoft.Quantum.Unstable.Arithmetic;
   open Microsoft.Quantum.Unstable.StatePreparation;
 
-  function GetMeanAmps_Indices4() : Double[] {
-    mutable amps = [0.0, size = 2 ^ 8];
-    for ind in [27, 30, 39, 45, 54, 57, 75, 78, 99, 108, 114, 120, 135, 141, 147, 156, 177, 180, 198, 201, 210, 216, 225, 228] {
-      set amps w/= ind <- 1.0;
-    }
-    return amps;
-  }
 
+  // Prepare the mean state for the indices encoding
   operation PrepareMean_Indices(n : Int, qs : Qubit[]) : Unit is Adj {
-    // Even superposition of the first n basis states
+    // Prepare even superposition of the first n basis states on each row of n qubits
     let meanAmps = [1.0 / Sqrt(IntAsDouble(n)), size = n];
     for row in Chunks(BitSizeI(n - 1), qs) {
       PreparePureStateD(meanAmps, row);
     }
   }
 
+
+  // Prepare the mean state for the indices encoding - optimized version.
+  // Python code computes the positions of the amplitudes 
+  // that correspond to queen placements with one queen per column
+  // and passes it to Q#
   operation PrepareMean_Indices_Opt(meanAmps : Double[], qs : Qubit[]) : Unit is Adj {
-    // The amplitudes passed from Python
     PreparePureStateD(meanAmps, qs);
   }
+
+
+  // Convert the pair of rows (row1, row2) into its integer index,
+  // assuming that all pairs are sorted in order of row1 increasing, then row2 increasing.
+  function GetRowPairInd(n : Int, row1 : Int, row2 : Int) : Int {
+    mutable ind = 0;
+    for r1 in 0 .. n - 1 {
+      for r2 in r1 + 1 .. n - 1 {
+        if r1 == row1 and r2 == row2 {
+          return ind;
+        }
+        set ind += 1;
+      }
+    }
+    return -1;
+  }
+
 
   operation Oracle_Indices(n : Int, x : Qubit[], y : Qubit) : Unit {
     let bitSize = BitSizeI(n - 1);

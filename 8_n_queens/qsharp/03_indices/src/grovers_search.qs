@@ -1,5 +1,6 @@
 ﻿namespace GroversSearch {
   open Microsoft.Quantum.Arrays;
+  open Microsoft.Quantum.Convert;
 
   operation RunGroversSearch(
     nBits : Int,
@@ -19,7 +20,7 @@
         Adjoint prepareMeanOp(qs);
         ApplyToEachA(X, qs);
       } apply {
-        Controlled Z(qs[1...], qs[0]);
+        Controlled Z(Rest(qs), qs[0]);
       }
     }
 
@@ -27,14 +28,6 @@
     return Mapped(m -> m == One, meas);
   }
   
-
-  operation MarkStates(x : Qubit[], y : Qubit, markedStates : Int[]) : Unit {
-    for state in markedStates {
-      // Use integers in big endian
-      ApplyControlledOnInt(state, X, Reversed(x), y);
-    }
-  }
-
 
   operation ApplyPhaseOracle(x : Qubit[], markingOracle : (Qubit[], Qubit) => Unit) : Unit {
     use aux = Qubit();

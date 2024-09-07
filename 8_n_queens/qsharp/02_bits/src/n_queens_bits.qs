@@ -4,7 +4,9 @@ namespace NQueens {
   open Microsoft.Quantum.Math;
   open Microsoft.Quantum.Unstable.StatePreparation;
 
-  function GetMeanAmps_Bits(n : Int) : Double[] {
+
+  // Returns the array of amplitudes of the W state on n qubits.
+  function GetWStateAmps(n : Int) : Double[] {
     mutable amps = [0.0, size = 2 ^ n];
     for i in 0 .. n - 1 {
       set amps w/= (1 <<< i) <- Sqrt(1.0 / IntAsDouble(n));
@@ -12,14 +14,19 @@ namespace NQueens {
     return amps;
   }
 
+
+  // Prepare the mean state for the bits encoding
   operation PrepareMean_Bits(n : Int, qs : Qubit[]) : Unit is Adj {
-    // W state on each row of n qubits
-    let wstateAmps = GetMeanAmps_Bits(n);
+    // Prepare W state on each row of n qubits
+    let wstateAmps = GetWStateAmps(n);
     for row in Chunks(n, qs) {
       PreparePureStateD(wstateAmps, row);
     }
   }
 
+
+  // Convert the pair of rows (row1, row2) into its integer index,
+  // assuming that all pairs are sorted in order of row1 increasing, then row2 increasing.
   function GetRowPairInd(n : Int, row1 : Int, row2 : Int) : Int {
     mutable ind = 0;
     for r1 in 0 .. n - 1 {
@@ -32,6 +39,7 @@ namespace NQueens {
     }
     return -1;
   }
+
 
   operation Oracle_Bits(n : Int, x : Qubit[], y : Qubit) : Unit {
     // The presence of a queen in row r and column c is described with x[r * n + c].

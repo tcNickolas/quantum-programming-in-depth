@@ -5,11 +5,14 @@ namespace NQueens.Test {
   open Microsoft.Quantum.Math;
   open NQueens;
 
+  // Helper operation to check that the given oracle recognizes valid and invalid placements.
+  // intAsEncoding converts an int that encodes the placement of n queens, one per row, into the format that matches the one used by the oracle.
+  // isPlacementValid checks that the placement encoded in an int is valid.
   operation AssertOracleIsValid(
     n : Int,
     intAsEncoding : (Int, Int) -> Bool[],
     oracle : (Int, Qubit[], Qubit) => Unit,
-    isEncodingValid : (Int, Bool[]) -> Bool
+    isPlacementValid : (Int, Bool[]) -> Bool
   ) : Unit {
     // Limit the consideration to placements with one queen per row
     for indicesInt in 0 .. n ^ n - 1 {
@@ -19,7 +22,7 @@ namespace NQueens.Test {
       oracle(n, x, y);
       ApplyPauliFromBitString(PauliX, true, bits, x);
 
-      let expected = isEncodingValid(n, bits);
+      let expected = isPlacementValid(n, bits);
       if expected {
         X(y);
       }
@@ -33,16 +36,10 @@ namespace NQueens.Test {
     }
   }
 
-  function IntAsEncoding_Bits(n : Int, int : Int) : Bool[] {
-    mutable current = int;
-    mutable bits = [false, size = n * n];
-    for row in 0 .. n - 1 {
-      set bits w/= row * n + (current % n) <- true;
-      set current /= n;
-    }
-    return bits;
-  }
 
+  // Converts int into an encoding of a queens placement.
+  // In "indices" mode, the queens placement is encoded using an n x bitsize Boolean array, 
+  // each row corresponding to an integer column index of the queen in that row
   function IntAsEncoding_Indices(n : Int, int : Int) : Bool[] {
     mutable current = int;
     let bitSize = BitSizeI(n - 1);
@@ -55,21 +52,11 @@ namespace NQueens.Test {
     return bits;
   }
 
-  function IsEncodingValid_Bits(n : Int, bits: Bool[]) : Bool {
-    let board = Chunks(n, bits);
-    // One queen per row
-    for r in 0 .. n - 1 {
-      let nQ = Count(x -> x, board[r]);
-      if nQ != 1 {
-        // Message($"Row {r} has {nQ} queens");
-        return false;
-      }
-    }
-    let indices = Mapped(IndexOf(x -> x, _), board);
-    return OneQueenPerColumnDiagonal(n, indices);
-  }
 
-  function IsEncodingValid_Indices(n : Int, bits: Bool[]) : Bool {
+  // Checks that the queens placement is valid.
+  // Since "one queen per row" is already enforced by the encoding (IntAsEncoding_Indices), 
+  // only checks that all columns are valid and that there is one queen per column and per diagonal
+  function IsPlacementValid_Indices(n : Int, bits: Bool[]) : Bool {
     let indices = Mapped(x -> BoolArrayAsInt(Reversed(x)), Chunks(BitSizeI(n - 1), bits));
     // Check that indices are valid
     for index in indices {
@@ -81,13 +68,20 @@ namespace NQueens.Test {
     return OneQueenPerColumnDiagonal(n, indices);
   }
 
+
+  // Checks that there is one queen per column and per diagonal
+  // using the encoding of queens positions as indices in each row.
   function OneQueenPerColumnDiagonal(n : Int, indices : Int[]) : Bool {
     // One queen per column and per diagonal
     for r1 in 0 .. n - 1 {
       for r2 in r1 + 1 .. n - 1 {
         let diff = indices[r1] - indices[r2];
-        if diff == 0 or AbsI(diff) == r2 - r1 {
-          // Message($"Queens ({r1}, {c1}) and ({r2}, {c2}) on diagonal");
+        if diff == 0 {
+          Message($"Queens ({r1}, {indices[r1]}) and ({r2}, {indices[r2]}) in a column");
+          return false;
+        }
+        if AbsI(diff) == r2 - r1 {
+          Message($"Queens ({r1}, {indices[r1]}) and ({r2}, {indices[r2]}) on diagonal");
           return false;
         }
       }
