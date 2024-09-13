@@ -30,4 +30,6 @@
       ApplyControlledOnInt(1, PrepArbitrary(_, oddAmps), [qs[N - 1]], qs[... N - 2]);
     }
   }
+
+  export PrepArbitrary;
 }

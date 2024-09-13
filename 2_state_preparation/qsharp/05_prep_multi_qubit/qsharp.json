@@ -1,1 +1,6 @@
-{}
+{
+  "author": "Mariia Mykhailova",
+  "files": [
+    "src/prep_multi_qubit.qs"
+  ]
+}
