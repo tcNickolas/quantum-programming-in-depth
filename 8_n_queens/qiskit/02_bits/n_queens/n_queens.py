@@ -1,5 +1,5 @@
 from math import sqrt
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+from qiskit import QuantumCircuit, QuantumRegister
 from qiskit.circuit.library import StatePreparation
 from qiskit.circuit.library.standard_gates import XGate, ZGate
 
@@ -21,19 +21,6 @@ def prep_mean_bits(n):
   for r in range(n):
     circ.append(wstateprep, range(r * n, (r + 1) * n))
   return circ.to_gate()
-
-
-# def get_rowpair_ind(n, row1, row2):
-#   """Convert the pair of rows (row1, row2) into its integer index,
-#   assuming that all pairs are sorted in order of row1 increasing, then row2 increasing.
-#   """
-#   ind = 0
-#   for r1 in range(n):
-#     for r2 in range(r1 + 1, n):
-#       if r1 == row1 and r2 == row2:
-#         return ind
-#       ind += 1
-#   return -1
 
 
 def oracle_bits(n):
@@ -125,6 +112,5 @@ def check_one_queen_per_column_diagonal(n, indices):
     for r2 in range(r1 + 1, n):
       diff = indices[r1] - indices[r2]
       if diff == 0 or abs(diff) == r2 - r1:
-        # print(f"Queens ({r1}, {indices[r1]}) and ({r2}, {indices[r2]}) on column or diagonal")
         return False
   return True
