@@ -18,7 +18,6 @@ def check_one_queen_per_column_diagonal(n, indices):
     for r2 in range(r1 + 1, n):
       diff = indices[r1] - indices[r2]
       if diff == 0 or abs(diff) == r2 - r1:
-        # print(f"Queens ({r1}, {indices[r1]}) and ({r2}, {indices[r2]}) on column or diagonal")
         return False
   return True
 
