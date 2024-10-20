@@ -7,11 +7,11 @@ from qiskit_aer import Aer
 n_rows = 4
 
 print(f"Running for board size {n_rows}, mode = Bits")
+simulator = Aer.get_backend('aer_simulator')
 
 for n_iter in range(4, 10):
   n_runs = 100
   circ = grovers_search(n_rows, n_iter)
-  simulator = Aer.get_backend('aer_simulator')
   circ = transpile(circ, backend=simulator)
   start_time = time()
   res_map = simulator.run(circ, shots=n_runs).result().get_counts()
