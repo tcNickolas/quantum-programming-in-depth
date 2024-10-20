@@ -1,6 +1,5 @@
 ﻿namespace StatePreparation {
   open Microsoft.Quantum.Diagnostics;
-  open Microsoft.Quantum.Intrinsic;
   open Microsoft.Quantum.Math;
 
   @EntryPoint()
