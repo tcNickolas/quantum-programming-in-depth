@@ -24,7 +24,7 @@ def test_mark_states(n, markedStates):
 @pytest.mark.parametrize("n, marked_states", test_cases)
 def test_apply_phase_oracle(n, marked_states):
   init(project_root='.')
-  matrix = dump_operation(f"GroversSearch.ApplyPhaseOracle(_, GroversSearch.MarkStates(_, _, {markedStates}))", n)
+  matrix = dump_operation(f"GroversSearch.ApplyPhaseOracle(_, GroversSearch.MarkStates(_, _, {marked_states}))", n)
 
   complete_coef = []
   for state in range(2 ** n):
