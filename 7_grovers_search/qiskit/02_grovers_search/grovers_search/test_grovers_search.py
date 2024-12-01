@@ -1,10 +1,12 @@
 from .grovers_search import *
+from qiskit import transpile
 
 def all_basis_states(n):
   circ = QuantumCircuit(n)
   circ.h(range(n))
   return circ.to_gate()
 
+simulator = Aer.get_backend('aer_simulator')
 
 test_cases = [
       (2, [0]),
@@ -19,8 +21,7 @@ def test_grovers_search(n, marked_states):
   marking_oracle = mark_states(n, marked_states)
   prepare_mean = all_basis_states(n)
   circ = grovers_search(n, marking_oracle, prepare_mean, 1)
-  circ = circ.decompose(reps=3)
-  simulator = Aer.get_backend('aer_simulator')
+  circ = transpile(circ, backend=simulator)
   res_map = simulator.run(circ, shots=100).result().get_counts()
   # For this test, results should only be one of the marked states
   assert len(res_map) <= len(test_cases)

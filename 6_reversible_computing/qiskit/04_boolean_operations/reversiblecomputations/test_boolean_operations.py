@@ -1,5 +1,5 @@
 from cmath import isclose
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 import pytest
 from .boolean_operations import *
@@ -61,8 +61,8 @@ def test_logic_operation(n, quantum_op, f):
       if input_be[i]:
         circ.x(i)
 
-    circ = circ.decompose(reps=2)
     circ.save_statevector()
+    circ = transpile(circ, backend=simulator)
 
     res = simulator.run(circ).result()
     state_vector = res.get_statevector().data

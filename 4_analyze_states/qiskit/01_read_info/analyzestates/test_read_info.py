@@ -1,5 +1,5 @@
 from .read_info import read_info
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 from random import randint
 
@@ -10,9 +10,9 @@ def run_test_read_info(n, basis_state):
       circ.x(i)
 
   circ.append(read_info(n), range(n), range(n))
-  circ = circ.decompose()
 
   simulator = Aer.get_backend('aer_simulator')
+  circ = transpile(circ, backend=simulator)
   res_map = simulator.run(circ, shots=100).result().get_counts()
   # Check that the execution result is always the same
   assert len(res_map) == 1

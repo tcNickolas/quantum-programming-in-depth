@@ -1,5 +1,5 @@
 from math import atan2, sqrt
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 
 simulator = Aer.get_backend('aer_simulator')
@@ -24,9 +24,10 @@ def prep_two_qubit(a):
     return circ
 
 def prep_two_qubit_demo(a):
-    circ = prep_two_qubit(a).decompose(reps=2)
+    circ = prep_two_qubit(a)
     circ.save_statevector()
 
+    circ = transpile(circ, backend=simulator)
     res = simulator.run(circ).result()
     state_vector = res.get_statevector()
     print([d.round(5) for d in state_vector.data])

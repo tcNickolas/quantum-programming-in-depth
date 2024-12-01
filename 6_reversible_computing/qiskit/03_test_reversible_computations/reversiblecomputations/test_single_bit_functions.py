@@ -1,5 +1,5 @@
 from cmath import isclose
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 import pytest
 from .single_bit_functions import *
@@ -37,8 +37,8 @@ def test_reversible_computation(quantum_op, f):
     if input:
       circ.x(0)
 
-    circ = circ.decompose(reps=3)
     circ.save_statevector()
+    circ = transpile(circ, backend=simulator)
 
     res = simulator.run(circ).result()
     state_vector = res.get_statevector().data

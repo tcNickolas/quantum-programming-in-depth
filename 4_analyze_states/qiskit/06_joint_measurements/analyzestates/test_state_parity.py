@@ -14,6 +14,8 @@ def complete_amps(n, parity_amps, parity):
 
   return complete_amps(n - 1, zero_amps, parity) + complete_amps(n - 1, one_amps, 1 - parity)
 
+simulator = Aer.get_backend('aer_simulator')
+
 def test_state_parity():
   for n in range(2, 6):
     for parity in range(2):
@@ -33,7 +35,6 @@ def test_state_parity():
         circ.append(state_parity(n), range(n + 1), [0])
         circ.save_statevector()
 
-        simulator = Aer.get_backend('aer_simulator')
         circ = transpile(circ, backend=simulator)
         res = simulator.run(circ, shots=100).result()
         # Check that the execution result is always the same

@@ -1,5 +1,5 @@
 from math import atan2, isclose
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 
 def apply_one_qubit(u):
@@ -15,9 +15,9 @@ coef = [[0.6, -0.8], [0.8, 0.6]]
 
 circ = QuantumCircuit(1)
 circ.append(apply_one_qubit(coef), [0])
-circ = circ.decompose()
 
 simulator = Aer.get_backend('unitary_simulator')
+circ = transpile(circ, backend=simulator)
 res = simulator.run(circ).result()
 matrix = res.get_unitary().data
 print(matrix)

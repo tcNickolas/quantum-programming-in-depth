@@ -1,6 +1,7 @@
 from .prep_multi_qubit import prep_multi_qubit
 import pytest
 from math import sqrt
+from qiskit import transpile
 from qiskit_aer import Aer
 from random import randint, uniform
 
@@ -9,9 +10,10 @@ simulator = Aer.get_backend('aer_simulator')
 def run_test_prep_multi_qubit(n, a):
   assert len(a) == 2 ** n
 
-  circ = prep_multi_qubit(n, a).decompose(reps=2)
+  circ = prep_multi_qubit(n, a)
   circ.save_statevector()
 
+  circ = transpile(circ, backend=simulator)
   res = simulator.run(circ).result()
   state_vector = res.get_statevector().data
 

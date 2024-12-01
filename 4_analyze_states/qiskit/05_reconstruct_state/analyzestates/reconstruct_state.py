@@ -1,5 +1,5 @@
 from math import pi, sqrt
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 
 simulator = Aer.get_backend('aer_simulator')
@@ -9,7 +9,7 @@ def reconstruct_state(state_prep):
   circ1 = QuantumCircuit(1, 1)
   circ1.append(state_prep, [0])
   circ1.measure(0, 0)
-  circ1 = circ1.decompose()
+  circ1 = transpile(circ1, backend=simulator)
 
   n_trials = 200
   res_map = simulator.run(circ1, shots=n_trials).result().get_counts()
@@ -27,7 +27,7 @@ def reconstruct_state(state_prep):
   circ2.append(state_prep, [0])
   circ2.ry(pi / 2, 0)
   circ2.measure(0, 0)
-  circ2 = circ2.decompose()
+  circ2 = transpile(circ2, backend=simulator)
 
   res_map = simulator.run(circ2, shots=n_trials).result().get_counts()
   if '0' in res_map and 2 * res_map['0'] > n_trials:

@@ -1,5 +1,5 @@
 from cmath import isclose
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 from qiskit.quantum_info import Operator
 import pytest
@@ -46,8 +46,8 @@ def test_mark_states(n, marked_states):
       if input_be[i]:
         circ.x(i)
 
-    circ = circ.decompose(reps=2)
     circ.save_statevector()
+    circ = transpile(circ, backend=simulator)
 
     res = simulator.run(circ).result()
     state_vector = res.get_statevector().data

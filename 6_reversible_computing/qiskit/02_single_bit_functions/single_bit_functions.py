@@ -1,5 +1,5 @@
 from math import acos
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit.circuit.library.standard_gates import XGate
 from qiskit_aer import Aer
 
@@ -33,9 +33,9 @@ for (quantum_op, f) in [
   circ = QuantumCircuit(2)
   circ.ry(2 * acos(0.6), 0)
   circ.append(quantum_op(), [0, 1])
-  circ = circ.decompose(reps=3)
   circ.save_statevector()
 
+  circ = transpile(circ, backend=simulator)
   state_vector = simulator.run(circ).result().get_statevector()
   print(f"The effects of applying the quantum operation {f} to the state (0.6|0⟩ + 0.8|1⟩) ⨂ |0⟩:")
   # Qiskit uses little endian: qubit 0 is printed last in ket notation

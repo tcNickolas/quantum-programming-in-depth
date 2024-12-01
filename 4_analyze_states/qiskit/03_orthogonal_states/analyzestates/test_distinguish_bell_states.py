@@ -1,7 +1,6 @@
 from .distinguish_bell_states import distinguish_bell_states
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
-from random import randrange
 
 def prep_bell_state(ind):
   circ = QuantumCircuit(2)
@@ -13,14 +12,15 @@ def prep_bell_state(ind):
     circ.z(0)
   return circ
 
+simulator = Aer.get_backend('aer_simulator')
+
 def test_distinguish_bell_states():
   for state_ind in range(4):
     circ = QuantumCircuit(2, 2)
     circ.append(prep_bell_state(state_ind), range(2))
     circ.append(distinguish_bell_states(), range(2), range(2))
-    circ = circ.decompose()
 
-    simulator = Aer.get_backend('aer_simulator')
+    circ = transpile(circ, backend=simulator)
     res_map = simulator.run(circ, shots=100).result().get_counts()
     # Check that the execution result is always the same
     assert len(res_map) == 1

@@ -1,7 +1,7 @@
 from cmath import isclose
 from .boolean_expressions import *
 import pytest
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 from functools import partial
 
@@ -41,8 +41,8 @@ def run_test_reversible(n_inputs, n_qubits, operation, function):
       if input_be[i]:
         circ.x(i)
 
-    circ = circ.decompose(reps=4)
     circ.save_statevector()
+    circ = transpile(circ, backend=simulator)
 
     res = simulator.run(circ).result()
     state_vector = res.get_statevector().data
