@@ -22,17 +22,6 @@ from math import sqrt
 def test_prep_two_qubit(a):
   qsharp.init(project_root='.')
   qsharp.eval(f"use qs = Qubit[2]; StatePreparation.PrepTwoQubits(qs, {a});")
-  state = qsharp.dump_machine()
+  state_vector = qsharp.dump_machine().as_dense_state()
 
-  # Find global phase difference
-  global_phase = -2
-  for ind in range(len(a)):
-    if abs(a[ind]) > 1E-9:
-        global_phase = state[ind] / a[ind]
-        break
-
-  for ind in range(len(a)):
-    if abs(a[ind]) > 1E-9:
-      assert state[ind] == pytest.approx(a[ind] * global_phase)
-    else:
-      assert ind not in state
+  assert state_vector == pytest.approx(a)
