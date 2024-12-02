@@ -16,15 +16,15 @@ test_cases = [
 @pytest.mark.parametrize("n, markedStates", test_cases)
 def test_mark_states(n, markedStates):
   init(project_root='.')
-  eval("GroversSearch.Test.AssertOperationImplementsFunction(" +
-       f"{n}, GroversSearch.MarkStates(_, _, {markedStates}), " + 
-       f"GroversSearch.Test.FMarkStates(_, {markedStates}))")
+  eval("Test.AssertOperationImplementsFunction(" +
+       f"{n}, Oracles.MarkStates(_, _, {markedStates}), " + 
+       f"Test.FMarkStates(_, {markedStates}))")
 
 
 @pytest.mark.parametrize("n, marked_states", test_cases)
 def test_apply_phase_oracle(n, marked_states):
   init(project_root='.')
-  matrix = dump_operation(f"GroversSearch.ApplyPhaseOracle(_, GroversSearch.MarkStates(_, _, {marked_states}))", n)
+  matrix = dump_operation(f"Oracles.ApplyPhaseOracle(_, Oracles.MarkStates(_, _, {marked_states}))", n)
 
   complete_coef = []
   for state in range(2 ** n):

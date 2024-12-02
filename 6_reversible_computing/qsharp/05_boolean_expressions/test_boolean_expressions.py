@@ -12,9 +12,9 @@ from qsharp import init, eval
     ])
 def test_evaluate_clause(n, clause):
   init(project_root='.')
-  eval("ReversibleComputing.Test.AssertOperationImplementsFunction(" +
+  eval("Test.AssertOperationImplementsFunction(" +
        f"{n}, ReversibleComputing.EvaluateClause(_, _, {clause}), " + 
-       f"ReversibleComputing.Test.FEvaluateClause(_, {clause}))")
+       f"Test.FEvaluateClause(_, {clause}))")
 
 
 @pytest.mark.parametrize("n, expression", 
@@ -29,6 +29,6 @@ def test_evaluate_clause(n, clause):
     ])
 def test_evaluate_expression(n, expression):
   init(project_root='.')
-  eval("ReversibleComputing.Test.AssertOperationImplementsFunction(" +
+  eval("Test.AssertOperationImplementsFunction(" +
        f"{n}, ReversibleComputing.EvaluateExpression(_, _, {expression}), " +
-       f"ReversibleComputing.Test.FEvaluateExpression(_, {expression}))")
+       f"Test.FEvaluateExpression(_, {expression}))")

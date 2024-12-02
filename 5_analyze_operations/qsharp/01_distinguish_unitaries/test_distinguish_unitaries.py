@@ -5,8 +5,8 @@ import qsharp
     [
       ("X, Z", "AnalyzeUnitaries.DistinguishXZ"),
       ("X, H", "AnalyzeUnitaries.DistinguishXH"),
-      ("X, AnalyzeUnitaries.Test.MinusX", "AnalyzeUnitaries.DistinguishXMinusX")
+      ("X, Test.MinusX", "AnalyzeUnitaries.DistinguishXMinusX")
     ])
 def test_distinguish_gates(gates, op):
   qsharp.init(project_root='.')
-  qsharp.eval(f"AnalyzeUnitaries.Test.DistinguishTwoGatesTestLogic([{gates}], {op})")
+  qsharp.eval(f"Test.DistinguishTwoGatesTestLogic([{gates}], {op})")
