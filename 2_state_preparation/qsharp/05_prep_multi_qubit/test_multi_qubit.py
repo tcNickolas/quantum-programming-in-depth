@@ -1,7 +1,7 @@
-import pytest
-import qsharp
 from math import sqrt
 from random import randint, uniform
+import qsharp
+import pytest
 
 def run_test_prep_multi_qubit(n, a):
   qsharp.init(project_root='.')

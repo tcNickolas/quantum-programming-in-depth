@@ -1,6 +1,6 @@
-import pytest
-import qsharp
 from math import sqrt
+import qsharp
+import pytest
 
 @pytest.mark.parametrize("a",
     [ [1., 0., 0., 0.],

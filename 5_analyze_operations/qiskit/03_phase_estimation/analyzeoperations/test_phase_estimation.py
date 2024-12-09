@@ -1,6 +1,6 @@
+from pytest import approx
 from .phase_estimation import *
 from .test_inputs import *
-from pytest import approx
 
 def test_one_bit_phase_estimation():
   for ind in [0, 1]:

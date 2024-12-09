@@ -1,8 +1,8 @@
-from .two_qubit_block_diagonal import apply_two_qubit_block_diagonal
-from math import pi, cos, sin
-from pytest import approx
-from random import random, randint
+from math import cos, pi, sin
+from random import randint, random
 from qiskit.quantum_info import Operator
+from pytest import approx
+from .two_qubit_block_diagonal import apply_two_qubit_block_diagonal
 
 def run_test_apply_two_qubit_block_diagonal(a, b):
   op = Operator(apply_two_qubit_block_diagonal(a, b))

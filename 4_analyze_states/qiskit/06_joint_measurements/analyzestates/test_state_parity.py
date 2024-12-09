@@ -1,9 +1,9 @@
-from .state_parity import state_parity
 from math import sqrt
-from pytest import approx
+from random import uniform
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
-from random import uniform
+from pytest import approx
+from .state_parity import state_parity
 
 def complete_amps(n, parity_amps, parity):
   if n == 1:

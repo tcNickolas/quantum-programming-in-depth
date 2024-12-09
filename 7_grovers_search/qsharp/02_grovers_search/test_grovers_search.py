@@ -1,5 +1,5 @@
+from qsharp import eval, init
 import pytest
-from qsharp import init, eval
 
 test_cases = [
       (2, [0]),

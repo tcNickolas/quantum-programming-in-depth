@@ -1,8 +1,8 @@
-from .two_qubit_cs_matrix import apply_two_qubit_cs_matrix
-from math import pi, cos, sin
-from pytest import approx
-from random import random, randint
+from math import cos, pi, sin
+from random import randint, random
 from qiskit.quantum_info import Operator
+from pytest import approx
+from .two_qubit_cs_matrix import apply_two_qubit_cs_matrix
 
 def run_test_apply_two_qubit_cs_matrix(c0, s0, c1, s1):
   op = Operator(apply_two_qubit_cs_matrix(c0, s0, c1, s1))

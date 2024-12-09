@@ -1,9 +1,9 @@
-from .n_queens import *
 from cmath import isclose
+from time import time
 from qiskit import transpile
 from qiskit_aer import Aer
-from time import time
 import pytest
+from .n_queens import *
 
 
 def int_to_encoding_bits(n, input_int):

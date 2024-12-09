@@ -1,8 +1,8 @@
-from .two_block_diagonal import apply_two_block_diagonal
-from math import pi, cos, sin
-from pytest import approx
-from random import random, randint
+from math import cos, pi, sin
+from random import randint, random
 from qiskit.quantum_info import Operator
+from pytest import approx
+from .two_block_diagonal import apply_two_block_diagonal
 
 def run_test_apply_two_block_diagonal(n, a, b):
   # For this version of the project, only test with 2 and 3 qubits.

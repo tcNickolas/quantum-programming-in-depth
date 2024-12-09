@@ -1,8 +1,8 @@
-from .arbitrary_cs_matrix import apply_arbitrary_cs_matrix
-from math import pi, cos, sin
-from pytest import approx
-from random import random, randint
+from math import cos, pi, sin
+from random import randint, random
 from qiskit.quantum_info import Operator
+from pytest import approx
+from .arbitrary_cs_matrix import apply_arbitrary_cs_matrix
 
 def run_test_apply_arbitrary_cs_matrix(n, cs):
   op = Operator(apply_arbitrary_cs_matrix(n, cs))

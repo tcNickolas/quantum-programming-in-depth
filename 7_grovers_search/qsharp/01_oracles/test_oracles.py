@@ -1,6 +1,6 @@
-import pytest
-from qsharp import init, eval
+from qsharp import eval, init
 from qsharp.utils import dump_operation
+import pytest
 
 test_cases = [
       (1, []),

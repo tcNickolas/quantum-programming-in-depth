@@ -1,8 +1,8 @@
-from .prep_two_qubit import prep_two_qubit
-import pytest
 from math import sqrt
 from qiskit import transpile
 from qiskit_aer import Aer
+import pytest
+from .prep_two_qubit import prep_two_qubit
 
 simulator = Aer.get_backend('aer_simulator')
 

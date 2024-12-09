@@ -1,5 +1,5 @@
+from qsharp import eval, init
 import pytest
-from qsharp import init, eval
 
 @pytest.mark.parametrize("n, op", 
     [

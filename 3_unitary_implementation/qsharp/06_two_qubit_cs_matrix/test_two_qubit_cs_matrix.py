@@ -1,8 +1,8 @@
 from math import cos, pi, sin
 from random import randint, random
-import pytest
 import qsharp
 from qsharp.utils import dump_operation
+import pytest
 
 def run_test_apply_two_qubit_cs_matrix(c0, s0, c1, s1):
   qsharp.init(project_root='.')

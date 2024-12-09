@@ -1,5 +1,4 @@
 from math import atan2, isclose
-from pytest import approx
 from qiskit import QuantumCircuit
 
 def apply_one_qubit(u):

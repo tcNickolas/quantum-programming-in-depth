@@ -62,4 +62,3 @@ def reconstruct_unitary(gate):
     return [[a, b], [b, -a]]
   else:
     return [[a, -b], [-b, a]]
-

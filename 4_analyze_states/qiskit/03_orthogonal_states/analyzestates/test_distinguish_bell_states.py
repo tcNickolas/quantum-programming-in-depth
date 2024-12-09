@@ -1,6 +1,6 @@
-from .distinguish_bell_states import distinguish_bell_states
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
+from .distinguish_bell_states import distinguish_bell_states
 
 def prep_bell_state(ind):
   circ = QuantumCircuit(2)

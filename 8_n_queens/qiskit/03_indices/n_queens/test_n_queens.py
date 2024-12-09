@@ -1,9 +1,9 @@
-from .n_queens import *
 from cmath import isclose
+from time import time
 from qiskit import transpile
 from qiskit_aer import Aer
-from time import time
 import pytest
+from .n_queens import *
 
 simulator = Aer.get_backend('aer_simulator')
 

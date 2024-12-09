@@ -1,9 +1,9 @@
-from .arbitrary_unitary import apply_arbitrary_unitary
-from numpy import identity, matrix, matmul
+from numpy import identity, matmul, matrix
 from numpy.random import default_rng
-from pytest import approx
-from scipy.linalg import qr
 from qiskit.quantum_info import Operator
+from scipy.linalg import qr
+from pytest import approx
+from .arbitrary_unitary import apply_arbitrary_unitary
 
 def run_test_apply_arbitrary_unitary(n, u):
   op = Operator(apply_arbitrary_unitary(n, u))

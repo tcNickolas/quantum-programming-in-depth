@@ -1,7 +1,7 @@
-from .distinguish_unitaries import distinguish_x_z, distinguish_x_h, distinguish_x_minusx
-import pytest
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
+import pytest
+from .distinguish_unitaries import *
 
 # Helper circuits that apply one of the two gates that 
 # need to be distinguished, depending on the value of index

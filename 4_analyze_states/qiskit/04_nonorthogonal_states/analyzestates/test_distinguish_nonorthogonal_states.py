@@ -1,8 +1,8 @@
-from .distinguish_nonorthogonal_states import distinguish_zero_and_sup
 from math import atan2, cos, pi, sin
+from random import uniform
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
-from random import uniform
+from .distinguish_nonorthogonal_states import distinguish_zero_and_sup
 
 def prep_input_state(alpha, beta, ind):
   circ = QuantumCircuit(1)

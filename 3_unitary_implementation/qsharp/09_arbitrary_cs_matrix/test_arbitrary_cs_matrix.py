@@ -1,8 +1,8 @@
 from math import cos, pi, sin
 from random import randint, random
-import pytest
 import qsharp
 from qsharp.utils import dump_operation
+import pytest
 
 def run_test_apply_arbitrary_cs_matrix(n, cs):
   qsharp.init(project_root='.')

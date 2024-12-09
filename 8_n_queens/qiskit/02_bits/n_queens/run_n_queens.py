@@ -1,7 +1,7 @@
-from qiskit import transpile
-from n_queens import *
 from time import time
+from qiskit import transpile
 from qiskit_aer import Aer
+from n_queens import *
 
 # Run Grover's search end-to-end and print the frequency of correct results
 n_rows = 4

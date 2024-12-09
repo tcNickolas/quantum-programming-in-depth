@@ -1,6 +1,6 @@
-from .read_info import read_info
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
+from .read_info import read_info
 
 def prep_test_state(ind):
   circ = QuantumCircuit(3)

@@ -1,5 +1,5 @@
-from qsharp import init, eval
 from time import time
+from qsharp import eval, init
 
 def check_placement_bits(n, bits):
   board = [bits[n * row:n * (row + 1)]

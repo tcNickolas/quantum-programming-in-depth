@@ -1,5 +1,5 @@
-import pytest
 import qsharp
+import pytest
 
 @pytest.mark.parametrize("gates,op", 
     [

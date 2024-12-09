@@ -1,9 +1,8 @@
-from .reconstruct_unitary import reconstruct_unitary
-from math import atan2, isclose, cos, pi, sin, sqrt
-import pytest
+from math import atan2, cos, isclose, pi, sin
+from random import randint, random
 from qiskit import QuantumCircuit
 from qiskit_aer import Aer
-from random import randint, random, randrange, uniform
+from .reconstruct_unitary import reconstruct_unitary
 
 def apply_one_qubit(u):
   circ = QuantumCircuit(1)

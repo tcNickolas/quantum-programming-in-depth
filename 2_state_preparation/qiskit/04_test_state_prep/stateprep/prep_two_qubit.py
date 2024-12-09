@@ -1,6 +1,6 @@
 from math import atan2, sqrt
-from qiskit import QuantumCircuit
 from typing import List
+from qiskit import QuantumCircuit
 
 def pre_one_qubit(alpha: float, beta: float):
     circ = QuantumCircuit(1, name=f'Prep({alpha}, {beta})')

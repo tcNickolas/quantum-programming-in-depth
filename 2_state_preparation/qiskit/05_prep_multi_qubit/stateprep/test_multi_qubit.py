@@ -1,9 +1,9 @@
-from .prep_multi_qubit import prep_multi_qubit
-import pytest
 from math import sqrt
+from random import randint, uniform
 from qiskit import transpile
 from qiskit_aer import Aer
-from random import randint, uniform
+import pytest
+from .prep_multi_qubit import prep_multi_qubit
 
 simulator = Aer.get_backend('aer_simulator')
 

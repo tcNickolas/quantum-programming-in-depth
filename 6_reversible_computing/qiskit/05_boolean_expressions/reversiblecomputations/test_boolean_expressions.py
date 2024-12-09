@@ -1,9 +1,9 @@
 from cmath import isclose
-from .boolean_expressions import *
-import pytest
+from functools import partial
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
-from functools import partial
+import pytest
+from .boolean_expressions import *
 
 def f_evaluate_clause(args, literals):
   for (ind, pos) in literals:

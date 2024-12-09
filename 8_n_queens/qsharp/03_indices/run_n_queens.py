@@ -1,7 +1,7 @@
 from itertools import permutations
 from math import pi, sqrt
-from qsharp import init, eval
 from time import time
+from qsharp import eval, init
 
 
 def check_placement_indices(n, bits):

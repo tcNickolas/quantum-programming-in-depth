@@ -1,7 +1,7 @@
-from .read_info import read_info
+from random import randint
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
-from random import randint
+from .read_info import read_info
 
 def run_test_read_info(n, basis_state):
   circ = QuantumCircuit(n, n)

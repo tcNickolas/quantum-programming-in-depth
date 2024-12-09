@@ -1,8 +1,8 @@
 from math import cos, pi, sin
 from random import randint, random
-import pytest
 import qsharp
 from qsharp.utils import dump_operation
+import pytest
 
 @pytest.mark.parametrize("u",
     [ [[1.0, 0.0], [0.0, 1.0]],

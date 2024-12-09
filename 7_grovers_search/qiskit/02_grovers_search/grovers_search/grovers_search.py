@@ -1,7 +1,5 @@
-import pytest
 from qiskit import QuantumCircuit
 from qiskit.circuit.library.standard_gates import XGate, ZGate
-from qiskit_aer import Aer
 
 def mark_states(n, marked_states):
   circ = QuantumCircuit(n + 1)

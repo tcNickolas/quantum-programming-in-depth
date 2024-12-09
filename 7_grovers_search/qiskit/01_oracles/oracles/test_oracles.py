@@ -1,7 +1,7 @@
 from cmath import isclose
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
 from qiskit.quantum_info import Operator
+from qiskit_aer import Aer
 import pytest
 from .oracles import *
 
