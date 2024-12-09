@@ -17,4 +17,4 @@ Code samples for the book ["Quantum Programming In Depth: Solving Problems with 
 
 ### [Chapter 8. Solve N Queens Puzzle Using Grover's Algorithm](./8_n_queens/)
 
-### Chapter 9. Evaluate Performance of Quantum Algorithms
+### [Chapter 9. Evaluate Performance of Quantum Algorithms](./9_evaluate_performance/)
