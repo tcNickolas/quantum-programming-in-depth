@@ -3,8 +3,8 @@
 operation PrepOneQubit(
   q : Qubit, alpha : Double, beta : Double
 ) : Unit is Adj + Ctl {
-  let angle = ArcTan2(beta, alpha);
-  Ry(2.0 * angle, q);
+  let theta = ArcTan2(beta, alpha);
+  Ry(2.0 * theta, q);
 }
 
 
