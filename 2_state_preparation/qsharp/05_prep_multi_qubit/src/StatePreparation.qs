@@ -24,8 +24,8 @@ operation PrepArbitrary(
 
     PrepOneQubit(qs[N - 1], m0, m1);
 
-    ApplyControlledOnInt(0, PrepArbitrary(_, evenAmps), [qs[N - 1]], qs[... N - 2]);
+    ApplyControlledOnInt(0, PrepArbitrary, [qs[N - 1]], (qs[... N - 2], evenAmps));
 
-    ApplyControlledOnInt(1, PrepArbitrary(_, oddAmps), [qs[N - 1]], qs[... N - 2]);
+    ApplyControlledOnInt(1, PrepArbitrary, [qs[N - 1]], (qs[... N - 2], oddAmps));
   }
 }

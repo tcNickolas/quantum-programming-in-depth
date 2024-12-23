@@ -1,7 +1,6 @@
 from math import atan2, cos, isclose, pi, sin
 from random import randint, random
 from qiskit import QuantumCircuit
-from qiskit_aer import Aer
 from .reconstruct_unitary import reconstruct_unitary
 
 def apply_one_qubit(u):

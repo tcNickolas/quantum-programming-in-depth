@@ -1,7 +1,6 @@
 from math import atan2, cos, pi, sin
 from random import randrange, uniform
 from qiskit import QuantumCircuit
-from qiskit_aer import Aer
 from .reconstruct_state import reconstruct_state
 
 def prep_state(alpha, beta):
