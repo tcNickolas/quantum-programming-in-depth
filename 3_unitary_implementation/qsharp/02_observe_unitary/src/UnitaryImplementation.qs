@@ -11,3 +11,9 @@ operation ApplyOneQubit(
   let angle = ArcTan2(u[1][0], u[0][0]);
   Ry(2.0 * angle, qs[0]);
 }
+
+
+@EntryPoint()
+operation DumpH() : Unit {
+    Std.Diagnostics.DumpOperation(1, ApplyOneQubit(_, [[0.6, -0.8], [0.8, 0.6]]));
+}

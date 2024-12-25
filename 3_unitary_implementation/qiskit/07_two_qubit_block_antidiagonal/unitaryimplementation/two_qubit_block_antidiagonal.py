@@ -28,6 +28,6 @@ def apply_two_qubit_block_antidiagonal(a, b):
   id = [[1., 0.], [0., 1.]]
   minus_a = [[-a[0][0], -a[0][1]], [-a[1][0], -a[1][1]]]
   circ.append(apply_two_qubit_block_diagonal(id, minus_a), [0, 1])
-  circ.append(apply_two_qubit_cs_matrix(*(0., 1.), *(0., 1.)), [0, 1])
+  circ.append(apply_two_qubit_cs_matrix(0., 1., 0., 1.), [0, 1])
   circ.append(apply_two_qubit_block_diagonal(id, b), [0, 1])
   return circ
