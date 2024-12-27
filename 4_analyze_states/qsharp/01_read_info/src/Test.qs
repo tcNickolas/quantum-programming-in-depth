@@ -5,7 +5,7 @@ import AnalyzeStates.ReadInformation;
 operation RunTestReadInformation(n : Int, basisState : Int) : Unit {
   use qs = Qubit[n];
   for i in 0 .. n - 1 {
-    if (basisState &&& (1 <<< i)) > 0 {
+    if basisState &&& (1 <<< i) > 0 {
       X(qs[i]);
     }
   }

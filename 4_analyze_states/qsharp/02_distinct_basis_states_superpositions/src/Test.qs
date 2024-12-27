@@ -12,12 +12,13 @@ operation PrepTestState(qs : Qubit[], ind : Int) : Unit {
 }
 
 operation TestDistinguishStates() : Unit {
-  for _ in 1 .. 100 {
-    use qs = Qubit[3];
-    let stateInd = DrawRandomInt(0, 3);
-    PrepTestState(qs, stateInd);
-    let resState = DistinguishStates(qs);
-    Fact(resState == stateInd, 
-      $"Expected state {stateInd}, got {resState}");
+  for stateInd in 0 .. 3 {
+    for _ in 1 .. 100 {
+      use qs = Qubit[3];
+      PrepTestState(qs, stateInd);
+      let resState = DistinguishStates(qs);
+      Fact(resState == stateInd, 
+        $"Expected state {stateInd}, got {resState}");
+    }
   }
 }

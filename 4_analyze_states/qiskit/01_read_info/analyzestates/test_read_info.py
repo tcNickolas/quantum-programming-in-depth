@@ -3,15 +3,16 @@ from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 from .read_info import read_info
 
+simulator = Aer.get_backend('aer_simulator')
+
 def run_test_read_info(n, basis_state):
   circ = QuantumCircuit(n, n)
   for i in range(n):
-    if (basis_state & (1 << i)) > 0:
+    if basis_state & (1 << i) > 0:
       circ.x(i)
 
   circ.append(read_info(n), range(n), range(n))
 
-  simulator = Aer.get_backend('aer_simulator')
   circ = transpile(circ, backend=simulator)
   res_map = simulator.run(circ, shots=100).result().get_counts()
   # Check that the execution result is always the same
