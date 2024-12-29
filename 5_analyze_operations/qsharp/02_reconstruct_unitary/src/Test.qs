@@ -17,15 +17,15 @@ operation ApplyOneQubit(
 
 operation RandomOneQubitUnitary() : Double[][] {
   // Choose unitary so as to make the top left coefficient non-negative
-  let theta = DrawRandomDouble(-PI() / 2., PI() / 2.);
+  let theta = DrawRandomDouble(0.1, PI() / 2. - 0.1) * (DrawRandomBool(0.5) ? 1. | -1.);
   let sign = DrawRandomInt(0, 1) == 0 ? +1. | -1.;
-  return [[Cos(theta), sign * Sin(theta)], 
-          [-Sin(theta), sign * Cos(theta)]];
+  return [[Cos(theta), -sign * Sin(theta)], 
+          [Sin(theta), sign * Cos(theta)]];
 }
 
 
 operation TestReconstructUnitary() : Unit {
-  for _ in 1 .. 10 {
+  for _ in 1 .. 50 {
     let matrix = RandomOneQubitUnitary();
     let unitary = ApplyOneQubit(_, matrix);
     let matrixRes = ReconstructUnitary(unitary);

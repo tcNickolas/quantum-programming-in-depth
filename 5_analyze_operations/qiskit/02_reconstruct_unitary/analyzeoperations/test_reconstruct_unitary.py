@@ -1,5 +1,5 @@
 from math import atan2, cos, isclose, pi, sin
-from random import randint, random
+from random import randint, uniform
 from qiskit import QuantumCircuit
 from .reconstruct_unitary import reconstruct_unitary
 
@@ -12,14 +12,14 @@ def apply_one_qubit(u):
   return circ.to_gate()
 
 def random_one_qubit_unitary():
-  theta = random() * 2 * pi
+  theta = uniform(0.1, pi / 2 - 0.1) * (1 if randint(0, 1) == 0 else -1)
   sign = +1 if randint(0, 1) == 1 else -1
-  return [[cos(theta), sign * sin(theta)], 
-         [-sin(theta), sign * cos(theta)]]
+  return [[cos(theta), -sign * sin(theta)], 
+          [sin(theta), sign * cos(theta)]]
 
 
 def test_reconstruct_unitary():
-  for _ in range(10):
+  for _ in range(50):
     matrix = random_one_qubit_unitary()
     unitary = apply_one_qubit(matrix)
 

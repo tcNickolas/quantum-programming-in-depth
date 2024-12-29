@@ -9,8 +9,8 @@ def prep_state(alpha, beta):
   return circ
 
 def test_reconstruct_state():
-  for _ in range(10):
-    angle = uniform(0, pi / 2)
+  for _ in range(50):
+    angle = uniform(0.1, pi / 2 - 0.1)
     alpha = cos(angle)
     beta = (1 if randrange(2) == 0 else -1) * sin(angle)
 
