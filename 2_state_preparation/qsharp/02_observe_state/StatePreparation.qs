@@ -5,8 +5,8 @@ import Std.Math.ArcTan2;
 operation SingleQubitDemo() : Unit {
   use q = Qubit();
   let (alpha, beta) = (0.6, 0.8);
-  let theta = ArcTan2(beta, alpha);
-  Ry(2.0 * theta, q);
+  let theta = 2.0 * ArcTan2(beta, alpha);
+  Ry(theta, q);
   DumpMachine();
   Reset(q);
 }

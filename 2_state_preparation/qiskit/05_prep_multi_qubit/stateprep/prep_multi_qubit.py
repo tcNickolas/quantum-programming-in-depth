@@ -3,8 +3,8 @@ from qiskit import QuantumCircuit
 
 def prep_one_qubit(alpha, beta):
   circ = QuantumCircuit(1, name=f'Prep({alpha}, {beta})')
-  theta = atan2(beta, alpha)
-  circ.ry(2 * theta, 0)
+  theta = 2 * atan2(beta, alpha)
+  circ.ry(theta, 0)
   return circ.to_gate()
 
 def prep_multi_qubit(n, a):
