@@ -1,7 +1,7 @@
 from cmath import isclose
 from time import time
 from qiskit import transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .n_queens import *
 
@@ -14,7 +14,7 @@ def int_to_encoding_bits(n, input_int):
   return bits
 
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 testcases = []
 for start in range(16):

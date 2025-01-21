@@ -1,9 +1,9 @@
 from random import randint
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 from .read_info import read_info
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def run_test_read_info(n, basis_state):
   circ = QuantumCircuit(n, n)

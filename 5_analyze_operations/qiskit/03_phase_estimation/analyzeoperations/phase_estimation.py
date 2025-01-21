@@ -1,9 +1,9 @@
 from math import acos, pi, sqrt
 from qiskit import QuantumCircuit, transpile
 from qiskit.circuit.library.standard_gates import SdgGate
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def one_bit_phase_estimation(n, eigenvector, unitary):
   circ = QuantumCircuit(n + 1, 1)

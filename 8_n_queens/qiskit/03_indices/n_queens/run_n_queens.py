@@ -1,13 +1,13 @@
 from time import time
 from qiskit import transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 from n_queens import *
 
 # Run Grover's search end-to-end and print the frequency of correct results
 n_rows = 4
 
 print(f"Running for board size {n_rows}, mode = Indices")
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 n_runs = 100
 
 for n_iter in range(4, 10):

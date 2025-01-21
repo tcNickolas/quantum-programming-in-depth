@@ -1,5 +1,5 @@
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .distinguish_unitaries import *
 
@@ -31,7 +31,7 @@ def apply_x_minusx(ind):
     circ.z(0)
   return circ
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 @pytest.mark.parametrize("apply_unitaries,distinguisher",
                          [(apply_x_z, distinguish_x_z), 

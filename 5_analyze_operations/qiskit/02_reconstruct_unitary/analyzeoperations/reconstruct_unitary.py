@@ -1,8 +1,8 @@
 from math import atan2, pi, sqrt
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def reconstruct_state(state_prep):
   # Figure out the absolute values of alpha and beta

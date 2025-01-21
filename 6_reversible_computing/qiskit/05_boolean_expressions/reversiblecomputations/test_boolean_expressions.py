@@ -1,7 +1,7 @@
 from cmath import isclose
 from functools import partial
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .boolean_expressions import *
 
@@ -18,7 +18,7 @@ def f_evaluate_expression(args, expression):
   return True
 
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def run_test_reversible(n_inputs, n_qubits, operation, function):
   format_str = f"{{:0>{n_inputs}b}}"

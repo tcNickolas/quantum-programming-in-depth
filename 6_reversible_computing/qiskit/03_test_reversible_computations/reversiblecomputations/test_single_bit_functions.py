@@ -1,6 +1,6 @@
 from cmath import isclose
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .single_bit_functions import *
 
@@ -16,7 +16,7 @@ def f_x(arg):
 def f_one_minus_x(arg):
   return not arg
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 @pytest.mark.parametrize("quantum_op,f",
                          [(quantum_zero, f_zero),

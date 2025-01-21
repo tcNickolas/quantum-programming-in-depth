@@ -1,7 +1,7 @@
 from math import acos
 from qiskit import QuantumCircuit, transpile
 from qiskit.circuit.library.standard_gates import XGate
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 
 def quantum_zero():
   circ = QuantumCircuit(2)
@@ -23,7 +23,7 @@ def quantum_one_minus_x():
   circ.append(XGate().control(1, ctrl_state=0), [0, 1])
   return circ
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 for (quantum_op, f) in [
     (quantum_zero, "f(x) = 0"), 

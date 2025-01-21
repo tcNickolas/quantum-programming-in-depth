@@ -1,5 +1,5 @@
 from qiskit import transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .grovers_search import *
 
@@ -8,7 +8,7 @@ def all_basis_states(n):
   circ.h(range(n))
   return circ.to_gate()
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 test_cases = [
       (2, [0]),

@@ -24,7 +24,8 @@ def grovers_search(n_bits, marking_oracle, prepare_mean, n_iterations):
   # Define Grover's iteration
   iter = QuantumCircuit(n_bits + 1)
   # Apply phase oracle
-  iter.append(phase_oracle(n_bits, marking_oracle), range(n_bits + 1))
+  phase_or = phase_oracle(n_bits, marking_oracle)
+  iter.append(phase_or, range(n_bits + 1))
   # Apply reflection about the mean
   iter.append(prepare_mean.inverse(), range(n_bits))
   iter.x(range(n_bits))

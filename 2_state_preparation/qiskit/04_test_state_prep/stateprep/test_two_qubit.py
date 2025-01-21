@@ -1,10 +1,10 @@
 from math import sqrt
 from qiskit import transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .prep_two_qubit import prep_two_qubit
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 @pytest.mark.parametrize("a",
     [ [1., 0., 0., 0.],

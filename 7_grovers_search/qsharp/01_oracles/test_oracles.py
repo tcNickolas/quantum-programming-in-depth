@@ -13,12 +13,12 @@ test_cases = [
     ]
 
 
-@pytest.mark.parametrize("n, markedStates", test_cases)
-def test_mark_states(n, markedStates):
+@pytest.mark.parametrize("n, marked_states", test_cases)
+def test_mark_states(n, marked_states):
   init(project_root='.')
   eval("Test.AssertOperationImplementsFunction(" +
-       f"{n}, Oracles.MarkStates(_, _, {markedStates}), " + 
-       f"Test.FMarkStates(_, {markedStates}))")
+       f"{n}, Oracles.MarkStates(_, _, {marked_states}), " + 
+       f"Test.FMarkStates(_, {marked_states}))")
 
 
 @pytest.mark.parametrize("n, marked_states", test_cases)

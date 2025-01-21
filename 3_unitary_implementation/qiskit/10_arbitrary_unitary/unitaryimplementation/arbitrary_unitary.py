@@ -59,4 +59,4 @@ def extract_blocks(matrix):
 
   a = [row[0 : block_len] for row in matrix[0 : block_len]]
   b = [row[block_len : ] for row in matrix[block_len : ]]
-  return (a, b)
+  return a, b

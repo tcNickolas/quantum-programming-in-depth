@@ -1,5 +1,5 @@
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 from .distinguish_bell_states import distinguish_bell_states
 
 def prep_bell_state(ind):
@@ -12,7 +12,7 @@ def prep_bell_state(ind):
     circ.z(0)
   return circ
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def test_distinguish_bell_states():
   for state_ind in range(4):

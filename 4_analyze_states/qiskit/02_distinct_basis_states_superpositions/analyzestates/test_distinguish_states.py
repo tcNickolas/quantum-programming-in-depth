@@ -1,5 +1,5 @@
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 from .read_info import read_info
 
 def prep_test_state(ind):
@@ -15,7 +15,7 @@ def interpret_measurements(str):
   res = int(str, 2)
   return res if res < 4 else 7 - res
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def test_distinguish_states():
   for state_ind in range(4):

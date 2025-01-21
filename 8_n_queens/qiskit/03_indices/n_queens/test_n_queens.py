@@ -1,11 +1,11 @@
 from cmath import isclose
 from time import time
 from qiskit import transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .n_queens import *
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 testcases = []
 for start in range(16):

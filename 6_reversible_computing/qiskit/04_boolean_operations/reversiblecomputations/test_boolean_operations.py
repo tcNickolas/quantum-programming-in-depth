@@ -1,6 +1,6 @@
 from cmath import isclose
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .boolean_operations import *
 
@@ -26,7 +26,7 @@ def f_multior(args):
   return any(args)
 
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 @pytest.mark.parametrize("n, quantum_op, f", 
     [

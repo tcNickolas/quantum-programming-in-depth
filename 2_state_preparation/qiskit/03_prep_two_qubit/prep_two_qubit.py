@@ -1,8 +1,8 @@
 from math import atan2, sqrt
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def prep_one_qubit(alpha, beta):
   circ = QuantumCircuit(1, name=f'Prep({alpha}, {beta})')

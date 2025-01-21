@@ -1,7 +1,7 @@
 from math import sqrt
 from random import uniform
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 from pytest import approx
 from .state_parity import state_parity
 
@@ -14,7 +14,7 @@ def complete_amps(n, parity_amps, parity):
 
   return complete_amps(n - 1, zero_amps, parity) + complete_amps(n - 1, one_amps, 1 - parity)
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def test_state_parity():
   for n in range(2, 6):

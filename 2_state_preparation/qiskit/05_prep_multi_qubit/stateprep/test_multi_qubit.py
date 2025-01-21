@@ -1,11 +1,11 @@
 from math import sqrt
 from random import randint, uniform
 from qiskit import transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .prep_multi_qubit import prep_multi_qubit
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def run_test_prep_multi_qubit(n, a):
   assert len(a) == 2 ** n

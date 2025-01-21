@@ -1,7 +1,7 @@
 from cmath import isclose
 from qiskit import QuantumCircuit, transpile
 from qiskit.quantum_info import Operator
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 import pytest
 from .oracles import *
 
@@ -11,7 +11,7 @@ def f_mark_states(args, marked_states):
   return arg in marked_states
 
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 test_cases = [
       (1, []),

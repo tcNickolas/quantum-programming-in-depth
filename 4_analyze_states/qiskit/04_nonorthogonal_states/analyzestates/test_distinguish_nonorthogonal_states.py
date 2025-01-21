@@ -1,7 +1,7 @@
 from math import atan2, cos, pi, sin
 from random import uniform
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 from .distinguish_nonorthogonal_states import distinguish_zero_and_sup
 
 def prep_input_state(alpha, beta, ind):
@@ -10,7 +10,7 @@ def prep_input_state(alpha, beta, ind):
     circ.ry(2. * atan2(beta, alpha), 0)
   return circ
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def test_distinguish_zero_and_sup():
   for _ in range(10):

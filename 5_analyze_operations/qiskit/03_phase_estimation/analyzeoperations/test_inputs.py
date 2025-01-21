@@ -1,8 +1,8 @@
 from cmath import exp, isclose, pi
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
+from qiskit_aer import AerSimulator
 
-simulator = Aer.get_backend('aer_simulator')
+simulator = AerSimulator(method='statevector')
 
 def z_gate():
   circ = QuantumCircuit(1)
