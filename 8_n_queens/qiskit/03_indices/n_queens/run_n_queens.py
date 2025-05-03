@@ -12,7 +12,7 @@ n_runs = 100
 
 for n_iter in range(4, 10):
   circ = grovers_search(n_rows, n_iter)
-  circ = transpile(circ, backend=simulator)
+  circ = transpile(circ, backend=simulator).decompose()
 
   start_time = time()
   res_map = simulator.run(circ, shots=n_runs).result().get_counts()
