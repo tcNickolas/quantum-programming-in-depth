@@ -27,7 +27,7 @@ def test_reconstruct_unitary():
 
     print(f"Actual matrix {matrix}, returned {matrix_res}")
 
-  for j in range(2):
-    for k in range(2):
-      if abs(matrix[j][k] - matrix_res[j][k]) > 0.1:
-        print(f"Incorrect coefficient at [{j}][{k}]: expected {matrix[j][k]}, got {matrix_res[j][k]}")
+    for j in range(2):
+      for k in range(2):
+        if abs(matrix[j][k] - matrix_res[j][k]) > 0.1:
+          raise Exception(f"Incorrect coefficient at [{j}][{k}]: expected {matrix[j][k]}, got {matrix_res[j][k]}")

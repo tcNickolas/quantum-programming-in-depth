@@ -61,4 +61,4 @@ def reconstruct_unitary(gate):
   if '0' in res_map and 2 * res_map['0'] > n_trials:
     return [[a, b], [b, -a]]
   else:
-    return [[a, -b], [-b, a]]
+    return [[a, -b], [b, a]]
