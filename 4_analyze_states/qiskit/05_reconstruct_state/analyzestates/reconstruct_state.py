@@ -11,7 +11,7 @@ def reconstruct_state(state_prep):
   circ1.measure(0, 0)
   circ1 = transpile(circ1, backend=simulator)
 
-  n_trials = 200
+  n_trials = 1000
   res_map = simulator.run(circ1, shots=n_trials).result().get_counts()
   if '0' in res_map:
     (n0, n1) = (res_map['0'], n_trials - res_map['0'])

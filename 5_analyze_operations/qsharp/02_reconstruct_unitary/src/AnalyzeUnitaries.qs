@@ -4,7 +4,7 @@ import Std.Math.*;
 operation ReconstructState(statePrep : Qubit => Unit) : (Double, Double) {
   // Figure out the absolute values of alpha and beta
   mutable nZeros = 0;
-  let nTrials = 200;
+  let nTrials = 1000;
   for _ in 1 .. nTrials {
     use q = Qubit();
     statePrep(q);
@@ -37,7 +37,7 @@ operation ReconstructUnitary(gate : Qubit => Unit) : Double[][] {
   // Figure out whether the second column is (b; -a) or (-b; a)
   // Prepare a state a|0> + b|1> and apply the unitary to it; 
   // in the first case, the result is always |0>, in the second case, (a^2-b^2)|0> + 2ab|1>
-  let nTrials = 200;
+  let nTrials = 1000;
   mutable nZeros = 0;
   for _ in 1 .. nTrials {
     use q = Qubit();
