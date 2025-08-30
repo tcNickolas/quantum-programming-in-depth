@@ -1,7 +1,6 @@
 # Quantum Programming In Depth Samples
-Code samples for the book ["Quantum Programming In Depth: Solving Problems with Q# and Qiskit"](https://mng.bz/M1R7) by Mariia Mykhailova.
+Code samples for the book ["Quantum Programming In Depth: Solving Problems with Q# and Qiskit"](https://www.manning.com/books/quantum-programming-in-depth) by Mariia Mykhailova.
 
-![DOTD_NewMEAP_Mykhailova](https://github.com/tcNickolas/quantum-programming-in-depth/assets/10113024/c927bf55-fd0a-4958-abc4-80ecd95428c1)
 
 ### [Chapter 2. Prepare Quantum States](./2_state_preparation/)
 
@@ -25,19 +24,23 @@ The recommended setup for running the samples from this book is based on [Visual
 
 ### Qiskit
 
-I used Python 3.12, Qiskit 1.3.1, and qiskit-aer 0.15.1 to develop the Qiskit code for this book. 
+Originally I used Python 3.12, Qiskit 1.3.1, and qiskit-aer 0.15.1 to develop the Qiskit code for this book. 
 Once you have a Python environment set up, you can install these packages using pip:
 
     pip install qiskit==1.3.1 qiskit-aer==0.15.1
 
+The latest versions of packages used to test the code is **Qiskit 2.1.2** and **qiskit-aer 0.17.1**.
+
 ### Q#
 
-I used Python 3.12 and Q# 1.11.1 to develop the Qiskit code for this book. 
-Once you have a Python environment set up, you can install these packages using pip:
+Originally I used Python 3.12 and Q# 1.11.1 to develop the Q# code for this book. 
+Once you have a Python environment set up, you can install this package using pip:
 
     pip install qsharp==1.11.1
 
-Additionally, [Azure Quantum Development Kit extension](https://marketplace.visualstudio.com/items?itemName=quantum.qsharp-lang-vscode) for Visual Studio Code provides language support in the editor. 
+The latest version of the package used to test the code is **Q# 1.20.0**.
+
+Additionally, [Azure Quantum Development Kit extension](https://marketplace.visualstudio.com/items?itemName=quantum.qsharp-lang-vscode) for Visual Studio Code provides Q# language support in the editor. 
 
 ### pytest
 
