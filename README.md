@@ -1,6 +1,7 @@
 # Quantum Programming In Depth Samples
 Code samples for the book ["Quantum Programming In Depth: Solving Problems with Q# and Qiskit"](https://www.manning.com/books/quantum-programming-in-depth) by Mariia Mykhailova.
 
+<img width="600" height="600" alt="Quantum Programming in Depth book cover" src="https://github.com/user-attachments/assets/4cf8153c-183b-4fb0-bc3f-9fe2110f6c95" />
 
 ### [Chapter 2. Prepare Quantum States](./2_state_preparation/)
 
