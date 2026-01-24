@@ -26,20 +26,21 @@ The recommended setup for running the samples from this book is based on [Visual
 ### Qiskit
 
 Originally I used Python 3.12, Qiskit 1.3.1, and qiskit-aer 0.15.1 to develop the Qiskit code for this book. 
+The latest versions of packages used to test the code is **Qiskit 2.2.3** and **qiskit-aer 0.17.2**.
+
 Once you have a Python environment set up, you can install these packages using pip:
 
-    pip install qiskit==1.3.1 qiskit-aer==0.15.1
+    pip install qiskit==2.2.3 qiskit-aer==0.17.2
 
-The latest versions of packages used to test the code is **Qiskit 2.1.2** and **qiskit-aer 0.17.1**.
 
 ### Q#
 
 Originally I used Python 3.12 and Q# 1.11.1 to develop the Q# code for this book. 
+The latest version of the package used to test the code is **Q# 1.25.1**.
+
 Once you have a Python environment set up, you can install this package using pip:
 
-    pip install qsharp==1.11.1
-
-The latest version of the package used to test the code is **Q# 1.20.0**.
+    pip install qsharp==1.25.1
 
 Additionally, [Azure Quantum Development Kit extension](https://marketplace.visualstudio.com/items?itemName=quantum.qsharp-lang-vscode) for Visual Studio Code provides Q# language support in the editor. 
 
