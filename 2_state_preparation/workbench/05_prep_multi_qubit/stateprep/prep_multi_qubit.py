@@ -1,11 +1,11 @@
 from math import atan2, sqrt
-from psiqworkbench import Qubits, Qubrick, Units
+from psiqdk.workbench import Qubits, Qubrick, units
 
 class StatePrep(Qubrick):
     def _compute(self, input_reg: Qubits, amps: list[float], ctrl=0):
         if input_reg.num_qubits == 1:
             theta = 2 * atan2(amps[1], amps[0])
-            input_reg.ry(theta * Units.rad, cond=ctrl)
+            input_reg.ry(theta * units.rad, cond=ctrl)
         else:
             even_amps = amps[0::2]
             odd_amps = amps[1::2]

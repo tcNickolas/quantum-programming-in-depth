@@ -1,5 +1,5 @@
 from .boolean_operations import *
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 import pytest
 
 # Classical functions

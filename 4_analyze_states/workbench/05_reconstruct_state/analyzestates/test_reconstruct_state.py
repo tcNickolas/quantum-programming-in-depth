@@ -1,7 +1,7 @@
 from functools import partial
 from math import pi, cos, sin
 from random import randrange, uniform
-from psiqworkbench import Qubits
+from psiqdk.workbench import Qubits
 from .reconstruct_state import reconstruct_state
 
 def prep_test_state(reg: Qubits, amps: list[float]) -> None:

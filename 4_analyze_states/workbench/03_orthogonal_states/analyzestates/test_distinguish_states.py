@@ -1,4 +1,4 @@
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .distinguish_states import distinguish_bell_states
 
 def prep_test_state(reg: Qubits, ind: int) -> None:

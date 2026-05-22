@@ -26,7 +26,7 @@ root_directory = '.'
 # Chapter 8 tests run for a longer time, so they're not included by default
 for chapter in range(2, 8):
     print(f"Testing chapter {chapter}")
-    for lang in ['qiskit', 'qsharp']:
+    for lang in ['qiskit', 'qsharp', 'workbench']:
         print(f"Testing {lang}")
         test_directories = find_test_dirs(root_directory, str(chapter), lang)
         test_directories.sort()

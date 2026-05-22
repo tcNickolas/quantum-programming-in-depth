@@ -1,6 +1,6 @@
 from cmath import pi, acos, sqrt
-from psiqworkbench import QPU, Qubits
-from workbench_algorithms import ArbitraryStatePrep
+from psiqdk.workbench import QPU, Qubits
+from psiqdk.algorithms import ArbitraryStatePrep, QFT
 
 def one_bit_phase_estimation(n, eigenvector, unitary):
     '''Phase estimation with the guarantee that the eigenphase has only one binary digit'''
@@ -96,6 +96,6 @@ def two_bit_quantum_phase_estimation(n, eigenvector, unitary):
     unitary(eigenstate, cond=phase[1])
     unitary(eigenstate, cond=phase[0])
 
-    phase.invQFT()
+    QFT().compute(phase, dagger=True)
 
     return phase.read() / 4

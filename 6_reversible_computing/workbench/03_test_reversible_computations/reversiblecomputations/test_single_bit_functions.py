@@ -1,5 +1,5 @@
 from .single_bit_functions import *
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 import pytest
 
 # Classical functions

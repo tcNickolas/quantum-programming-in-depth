@@ -1,6 +1,6 @@
 from math import sqrt
-from psiqworkbench import QPU, Qubits, Qubrick
-from workbench_algorithms import ArbitraryStatePrep
+from psiqdk.workbench import QPU, Qubits, Qubrick
+from psiqdk.algorithms import ArbitraryStatePrep
 
 # Mean state preparation routines
 def get_wstate_amps(n_rows):

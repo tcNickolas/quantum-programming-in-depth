@@ -1,5 +1,5 @@
 from functools import partial
-from psiqworkbench import Qubits
+from psiqdk.workbench import Qubits
 from .distinguish_unitaries import *
 import pytest
 

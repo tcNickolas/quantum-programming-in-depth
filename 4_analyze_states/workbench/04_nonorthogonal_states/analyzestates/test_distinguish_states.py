@@ -1,6 +1,6 @@
 from math import pi, cos, sin
 from random import uniform
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .distinguish_states import distinguish_zero_and_sup
 
 def prep_test_state(reg: Qubits, alpha: float, beta: float, ind: int) -> None:

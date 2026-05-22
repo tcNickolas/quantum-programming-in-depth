@@ -1,4 +1,4 @@
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 
 def marking_oracle(x: Qubits, y: Qubits, marked_states: list[int]) -> None:
     for state in marked_states:

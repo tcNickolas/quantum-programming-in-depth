@@ -1,5 +1,5 @@
 from functools import partial
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .grovers_search import *
 import pytest
 

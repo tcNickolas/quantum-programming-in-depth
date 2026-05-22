@@ -1,6 +1,6 @@
 from math import cos, pi, sin
 from random import randint, random
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .two_qubit_cs_matrix import ApplyTwoQubitCSMatrix
 import pytest
 

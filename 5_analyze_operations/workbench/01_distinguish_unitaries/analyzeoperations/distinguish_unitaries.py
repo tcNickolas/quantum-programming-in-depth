@@ -1,4 +1,4 @@
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 
 def distinguish_x_z(unitary: callable) -> int:
     '''The function that sets up and runs the experiment to distinguish X and Z gates.'''

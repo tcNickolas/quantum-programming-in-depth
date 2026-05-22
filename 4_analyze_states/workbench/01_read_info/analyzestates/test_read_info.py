@@ -1,5 +1,5 @@
 from random import randint
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .read_info import read_info
 
 def run_test_read_info(n: int, basis_state: int) -> None:
