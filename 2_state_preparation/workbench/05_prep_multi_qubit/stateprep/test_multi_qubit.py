@@ -1,6 +1,6 @@
 from math import sqrt
 from random import randint, uniform
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .prep_multi_qubit import StatePrep
 import pytest
 

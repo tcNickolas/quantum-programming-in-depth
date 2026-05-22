@@ -1,6 +1,6 @@
 from math import atan2, isclose
 from scipy.linalg import cossin
-from psiqworkbench import Qubits, Qubrick, Units
+from psiqdk.workbench import Qubits, Qubrick, units
 
 class ApplyArbitraryUnitary(Qubrick):
     '''Apply an arbitrary unitary given by its real-valued matrix'''
@@ -18,7 +18,7 @@ class ApplyArbitraryUnitary(Qubrick):
         if isclose(u[0][0], -u[1][1]) and isclose(u[1][0], u[0][1]):
             reg.z(cond=ctrl)
         theta = atan2(u[1][0], u[0][0])
-        reg.ry(2 * theta * Units.rad, cond=ctrl)
+        reg.ry(2 * theta * units.rad, cond=ctrl)
     
     def _apply_block_diagonal(self, reg: Qubits, a: list[list[float]], b: list[list[float]], ctrl: Qubits=0) -> None:
         self._compute(reg[:-1], b, ctrl=reg[-1] | ctrl)

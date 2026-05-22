@@ -1,4 +1,4 @@
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .n_queens import *
 import pytest
 

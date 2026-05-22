@@ -1,5 +1,5 @@
 from functools import partial
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .boolean_expressions import *
 
 def run_test_reversible(n_inputs: int, n_qubits: int, quantum_op: callable, f: callable):

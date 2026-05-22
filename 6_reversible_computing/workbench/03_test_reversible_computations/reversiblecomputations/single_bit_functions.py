@@ -1,4 +1,4 @@
-from psiqworkbench import Qubits
+from psiqdk.workbench import Qubits
 
 def quantum_zero(x: Qubits, y: Qubits):
     pass

@@ -1,4 +1,4 @@
-from psiqworkbench import Qubits, Qubrick
+from psiqdk.workbench import Qubits, Qubrick
 
 def q_and(x: Qubits, y: Qubits):
     y.x(cond=x)

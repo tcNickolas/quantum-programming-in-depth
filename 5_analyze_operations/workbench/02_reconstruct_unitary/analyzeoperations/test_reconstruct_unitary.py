@@ -1,14 +1,14 @@
 from math import atan2, cos, isclose, pi, sin
 from random import randint, uniform
 from functools import partial
-from psiqworkbench import Qubits
+from psiqdk.workbench import Qubits
 from .reconstruct_unitary import *
 
 def apply_one_qubit(reg: Qubits, u: list[list[float]]) -> None:
     if isclose(u[0][0], -u[1][1]) and isclose(u[1][0], u[0][1]):
         reg.z()
     theta = atan2(u[1][0], u[0][0])
-    reg.ry(2 * theta * Units.rad)
+    reg.ry(2 * theta * units.rad)
 
 
 def random_one_qubit_unitary():

@@ -1,5 +1,5 @@
 from math import sqrt
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .prep_two_qubit import prep_two_qubit
 import pytest
 

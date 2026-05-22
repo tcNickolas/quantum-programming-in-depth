@@ -1,5 +1,5 @@
 from math import atan2, pi, sqrt
-from psiqworkbench import QPU, Qubits, Units
+from psiqdk.workbench import QPU, Qubits, units
 
 def reconstruct_state(state_prep: callable) -> tuple[float, float]:
     n_trials = 1000
@@ -26,7 +26,7 @@ def reconstruct_state(state_prep: callable) -> tuple[float, float]:
         reg = Qubits(1, "reg", qpu)
         state_prep(reg)
         # The mid-line between them would be horizontal, so we rotate by PI/4 clockwise
-        reg.ry(pi / 2 * Units.rad)
+        reg.ry(pi / 2 * units.rad)
         if reg.read() == 0:
             n0 += 1
     if 2 * n0 > n_trials:
@@ -58,7 +58,7 @@ def reconstruct_unitary(gate: callable) -> list[list[float]]:
         # Figure out the angle of the line halfway between |0> and alpha |0> + beta |1>
         theta = atan2(2 * a * abs(b), a * a - b * b) / 2
         # Rotate so that the middle between the two angles is at the angle pi/4
-        reg.ry(- 2 * (theta - pi / 4) * Units.rad)
+        reg.ry(- 2 * (theta - pi / 4) * units.rad)
         if reg.read() == 0:
             n0 += 1
 

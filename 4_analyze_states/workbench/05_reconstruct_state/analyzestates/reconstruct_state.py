@@ -1,5 +1,5 @@
 from math import pi, sqrt
-from psiqworkbench import QPU, Qubits, Units
+from psiqdk.workbench import QPU, Qubits, units
 
 def reconstruct_state(state_prep: callable) -> tuple[float, float]:
     n_trials = 1000
@@ -26,7 +26,7 @@ def reconstruct_state(state_prep: callable) -> tuple[float, float]:
         reg = Qubits(1, "reg", qpu)
         state_prep(reg)
         # The mid-line between them would be horizontal, so we rotate by PI/4 clockwise
-        reg.ry(pi / 2 * Units.rad)
+        reg.ry(pi / 2 * units.rad)
         if reg.read() == 0:
             n0 += 1
     if 2 * n0 > n_trials:

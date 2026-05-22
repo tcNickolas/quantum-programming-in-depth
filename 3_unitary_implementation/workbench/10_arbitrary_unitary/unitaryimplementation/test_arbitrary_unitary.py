@@ -1,7 +1,7 @@
 from numpy import identity, matmul
 from numpy.linalg import qr
 from numpy.random import default_rng
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .arbitrary_unitary import ApplyArbitraryUnitary
 import pytest
 

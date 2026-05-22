@@ -1,4 +1,4 @@
-from psiqworkbench import Qubits
+from psiqdk.workbench import Qubits
 
 def distinguish_states(reg: Qubits) -> int:
     res = reg.read()

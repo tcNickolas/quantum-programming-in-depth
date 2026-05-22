@@ -1,4 +1,4 @@
-from psiqworkbench import Qubits
+from psiqdk.workbench import Qubits
 
 def distinguish_bell_states(reg: Qubits) -> int:
     reg[1].x(cond=reg[0])

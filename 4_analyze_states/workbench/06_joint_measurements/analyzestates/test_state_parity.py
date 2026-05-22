@@ -1,5 +1,5 @@
 from math import sqrt
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from random import uniform
 from .state_parity import state_parity
 

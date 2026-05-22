@@ -1,12 +1,12 @@
 from math import atan2, isclose
-from psiqworkbench import Qubits, Qubrick, Units
+from psiqdk.workbench import Qubits, Qubrick, units
 
 class ApplyOneQubitUnitary(Qubrick):
     def _compute(self, reg: Qubits, u: list[list[float]], ctrl: Qubits=0) -> None:
         if isclose(u[0][0], -u[1][1]) and isclose(u[1][0], u[0][1]):
             reg.z(cond=ctrl)
         theta = atan2(u[1][0], u[0][0])
-        reg.ry(2 * theta * Units.rad, cond=ctrl)
+        reg.ry(2 * theta * units.rad, cond=ctrl)
 
 
 class ApplyTwoQubitCSMatrix(Qubrick):

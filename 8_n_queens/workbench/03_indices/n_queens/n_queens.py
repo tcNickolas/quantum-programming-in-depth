@@ -1,6 +1,6 @@
 from math import sqrt
-from psiqworkbench import QPU, Qubits, Qubrick, QUInt
-from workbench_algorithms import ArbitraryStatePrep
+from psiqdk.workbench import QPU, QUInt, Qubits, Qubrick
+from psiqdk.algorithms import ArbitraryStatePrep
 
 # Mean state preparation routines
 def bits_per_row(n_rows):

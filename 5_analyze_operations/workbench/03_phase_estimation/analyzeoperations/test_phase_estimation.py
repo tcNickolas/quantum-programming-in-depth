@@ -1,5 +1,5 @@
 from cmath import exp, pi, isclose
-from psiqworkbench import QPU, Qubits
+from psiqdk.workbench import QPU, Qubits
 from .phase_estimation import *
 import pytest
 
